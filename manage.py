@@ -4,6 +4,8 @@ import os
 import sys
 
 
+# Ronak First Git Commit
+
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
