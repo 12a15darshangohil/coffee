@@ -49,6 +49,9 @@ body{
 .scaleA{
   animation: zoom 0.4s ease-in-out;
 } 
+.FontTitle{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 @keyframes zoom {
   from{
      transform: scale(0);
