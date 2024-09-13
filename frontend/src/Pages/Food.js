@@ -1,10 +1,13 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 const Food = () =>{
+    const Location=useLocation();
     const data=[1,2,3,4,5]
     useEffect(()=>{
         // fetch("http://127.0.0.1:8000/api/items/")
         // .then( res => res.json())
         // .then(data =>{console.log(data)})
+        console.log(Location.pathname.split('/'))
     })
     return(
         <>
@@ -17,7 +20,7 @@ const Food = () =>{
                 data.map((item)=>{
                     return(
                     <>
-                    <div className='flex w-[420px]  px-4 bg-[#F9F9F9] py-5 rounded-[8px] item_container mr-[28px] my-[15px] '>
+                    <div className='flex w-[420px]  px-4 bg-[#F9F9F9] py-5 rounded-[8px] item_container mr-[28px] my-[15px] scaleA'>
                     <div>
                         <img src='https://starbucksstatic.cognizantorderserv.com/Items/Small/M107781.jpg' className='rounded-full ' style={{ maxWidth: "99px", maxHeight: "99px" }} />
                     </div>

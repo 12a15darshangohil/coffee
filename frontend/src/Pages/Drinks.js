@@ -15,12 +15,12 @@ const Drinks = () => {
                 <p className="font-bold text-[#000000c4] mt-20 text-[18px] ">Bestseller</p>
                 <p className="text-[#000000af] mt-2 mb-7">Everyone's favorite Starbucks put together in a specially curated collection</p>
             </div>
-            <div className=" sm:px-0 md:w-4/5 m-auto flex flex-wrap items-center mb-24 ">
+            <div className=" sm:px-0 w-[80%] mx-auto flex flex-wrap items-center mb-24 ">
                 {
                     data.map((item) => {
                         return (
                             <>
-                                <div className='flex w-[420px]  px-4 bg-[#F9F9F9] py-5 rounded-[8px] item_container mr-[28px] my-[15px] '>
+                                <div className='flex w-[420px]  px-4 bg-[#F9F9F9] py-5 rounded-[8px] item_container mr-[28px] my-[15px] scaleA '>
                                     <div>
                                         <img src='https://starbucksstatic.cognizantorderserv.com/Items/Small/M107781.jpg' className='rounded-full ' style={{ maxWidth: "99px", maxHeight: "99px" }} />
                                     </div>

@@ -17,7 +17,7 @@ const CoffeeAtHome = () =>{
                 data.map((item)=>{
                     return(
                     <>
-                    <div className='flex w-[420px]  px-4 bg-[#F9F9F9] py-5 rounded-[8px] item_container mr-[28px] my-[15px] '>
+                    <div className='flex w-[420px]  px-4 bg-[#F9F9F9] py-5 rounded-[8px] item_container mr-[28px] my-[15px] scaleA'>
                     <div>
                         <img src='https://starbucksstatic.cognizantorderserv.com/Items/Small/M107781.jpg' className='rounded-full ' style={{ maxWidth: "99px", maxHeight: "99px" }} />
                     </div>

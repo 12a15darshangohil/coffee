@@ -15,6 +15,7 @@ function Routing(){
                     <Route index element={<Home/>}></Route>
                     <Route path="Order" element={<Order/>}>
                        <Route index element={<Drinks/>}></Route>
+                       <Route path="drinks" element={<Drinks/>}></Route>
                        <Route path="Food" element={<Food/>}></Route>
                        <Route path="CoffeeAtHome" element={<CoffeeAtHome/>}></Route>
                        <Route path="Merchandise" element={<Merchandise/>}></Route>
