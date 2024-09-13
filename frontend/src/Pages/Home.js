@@ -18,32 +18,32 @@ function Home(){
           <h1 className='text-[#1e3932] text-2xl font-bold mb-6'>Handcrafted Curations</h1>
           <div className='flex items-center text-center flex-wrap justify-around'>
                   <a className="flex justify-center items-center flex-col  " >
-                    <Link to=""><img src={"https://www.starbucks.in/assets/icon/Bestseller.webp"} className="w-32 h-32 shadow-md sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1" /></Link>
+                    <Link to=""><img src={"https://www.starbucks.in/assets/icon/Bestseller.webp"} className="w-32 h-32 drop-shadow-xl sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
                     <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Bestseller</p>
                   </a>
 
                   <a className="flex justify-center items-center flex-col " >
-                    <Link to="Order/drinks"><img src={"	https://www.starbucks.in/assets/icon/Drinks.webp"} className="w-32 h-32  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1" /></Link>
+                    <Link to="Order/drinks"><img src={"	https://www.starbucks.in/assets/icon/Drinks.webp"} className="w-32 h-32 drop-shadow-xl  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
                     <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Drinks</p>
                   </a>
 
                   <a className="flex justify-center items-center flex-col " >
-                    <Link to="/Order/Food"><img src={"https://www.starbucks.in/assets/icon/Food.webp"} className="w-32 h-32  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1" /></Link>
+                    <Link to="/Order/Food"><img src={"https://www.starbucks.in/assets/icon/Food.webp"} className="w-32 h-32 drop-shadow-xl  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
                     <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Food</p>
                   </a>
 
                   <a className="flex justify-center items-center flex-col " >
-                    <Link to="/Order/Merchandise"><img src={"https://starbucksstatic.cognizantorderserv.com/Items/Small/114615_1.png"} className="w-32 h-32  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1" /></Link>
+                    <Link to="/Order/Merchandise"><img src={"https://starbucksstatic.cognizantorderserv.com/Items/Small/114615_1.png"} className="w-32 h-32 drop-shadow-xl  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
                     <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Merchandise</p>
                   </a>
 
                   <a className="flex justify-center items-center flex-col " >
-                    <Link to="/Order/CoffeeAtHome"><img src={"https://www.starbucks.in/assets/icon/CoffeeAtHome.webp"} className="w-32 h-32  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1" /></Link>
+                    <Link to="/Order/CoffeeAtHome"><img src={"https://www.starbucks.in/assets/icon/CoffeeAtHome.webp"} className="w-32 h-32 drop-shadow-xl  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
                     <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Coffee At Home</p>
                   </a>
 
                   <a className="flex justify-center items-center flex-col " >
-                    <Link to="/Order/Food"><img src={"https://www.starbucks.in/assets/icon/ReadyToEat.webp"} className="w-32 h-32  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1" /></Link>
+                    <Link to="/Order/Food"><img src={"https://www.starbucks.in/assets/icon/ReadyToEat.webp"} className="w-32 h-32 drop-shadow-xl sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
                     <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Ready To Eat</p>
                   </a>
           </div>
@@ -123,7 +123,7 @@ function Home(){
               <div className='text-white'>
                 <h2 className='text-3xl font-bold py-5'>Art & Science Of Coffee Brewing</h2>
                 <p>Master the perfect brew with Starbucks! Learn the art and science of coffee brewing.</p>
-                <button className='bg-white text-black w-full max-w-[200px] font-semibold text-sm py-2 rounded-full mt-8'>Learn More</button>
+                <Link to="/Coffeculture"><button className='bg-white text-black w-full max-w-[200px] font-semibold text-sm py-2 rounded-full mt-8'>Learn More</button></Link>
               </div>
             </div>
           </div>

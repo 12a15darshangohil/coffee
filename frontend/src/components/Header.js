@@ -15,6 +15,7 @@ function Header(){
           <Link to="/" className='hover:text-[#4A8A66]'>Pay</Link>
         </div>
         <div className=' text-xl text-slate-500 w-full max-w-[300px] shadow-md flex my-auto py-2 px-5 rounded-full mr-[80px] '>
+             <img src="	https://www.starbucks.in/assets/icon/search.svg"></img>
             <input type="text" className='text-sm w-full bg-transparent border-none outline-none px-3' placeholder="Looking for something specific ?" />
         </div>
         <div className='text-xl text-slate-500 my-auto ' >
