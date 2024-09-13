@@ -15,11 +15,36 @@ function Home(){
                   {/* Handcrafted Curations */}
       <div className='bg-white py-14'>
         <div className='px-2  sm:px-0 md:w-4/5 m-auto'>
-          <h1 className='text-[#1e3932] text-2xl font-bold mb-4'>Handcrafted Curations</h1>
-          <div className='flex justify-between items-center text-center flex-wrap'>
-                  <a className="flex justify-center items-center flex-col" >
-                    <img src={"#"} className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1" />
-                    <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap'>HEllo</p>
+          <h1 className='text-[#1e3932] text-2xl font-bold mb-6'>Handcrafted Curations</h1>
+          <div className='flex items-center text-center flex-wrap justify-around'>
+                  <a className="flex justify-center items-center flex-col  " >
+                    <img src={"https://www.starbucks.in/assets/icon/Bestseller.webp"} className="w-32 h-32 shadow-md sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1" />
+                    <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap'>Bestseller</p>
+                  </a>
+
+                  <a className="flex justify-center items-center flex-col " >
+                    <img src={"	https://www.starbucks.in/assets/icon/Drinks.webp"} className="w-32 h-32  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1" />
+                    <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap'>Drinks</p>
+                  </a>
+
+                  <a className="flex justify-center items-center flex-col " >
+                    <img src={"https://www.starbucks.in/assets/icon/Food.webp"} className="w-32 h-32  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1" />
+                    <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap'>Food</p>
+                  </a>
+
+                  <a className="flex justify-center items-center flex-col " >
+                    <img src={"https://starbucksstatic.cognizantorderserv.com/Items/Small/114615_1.png"} className="w-32 h-32  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1" />
+                    <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap'>Merchandise</p>
+                  </a>
+
+                  <a className="flex justify-center items-center flex-col " >
+                    <img src={"https://www.starbucks.in/assets/icon/CoffeeAtHome.webp"} className="w-32 h-32  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1" />
+                    <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap'>Coffee At Home</p>
+                  </a>
+
+                  <a className="flex justify-center items-center flex-col " >
+                    <img src={"https://www.starbucks.in/assets/icon/ReadyToEat.webp"} className="w-32 h-32  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1" />
+                    <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap'>Ready To Eat</p>
                   </a>
           </div>
         </div>

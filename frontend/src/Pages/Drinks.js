@@ -2,16 +2,22 @@ import { useEffect } from "react";
 const Drinks = () =>{
     const data=[1,2,3,4,5]
     useEffect(()=>{
-
+        fetch("http://127.0.0.1:8000/api/items/")
+        .then( res => res.json())
+        .then(data =>{console.log(data)})
     })
     return(
         <>
-        <div className="flex flex-wrap">
+            <div className="sm:px-0 md:w-4/5 m-auto ">
+                <p className="font-bold text-[#000000c4] mt-24 text-[18px] ">Bestseller</p>
+                <p className="text-[#000000af] mt-2 mb-7">Everyone's favorite Starbucks put together in a specially curated collection</p>
+            </div>
+        <div className=" sm:px-0 md:w-4/5 m-auto flex flex-wrap items-center mb-24 ">
             {
                 data.map((item)=>{
                     return(
                     <>
-                    <div className='flex w-[420px] px-4 bg-[#F9F9F9] py-5 rounded-[8px] item_container mx-[10px] my-[15px] '>
+                    <div className='flex w-[420px]  px-4 bg-[#F9F9F9] py-5 rounded-[8px] item_container mr-[28px] my-[15px] '>
                     <div>
                         <img src='https://starbucksstatic.cognizantorderserv.com/Items/Small/M107781.jpg' className='rounded-full ' style={{ maxWidth: "99px", maxHeight: "99px" }} />
                     </div>
@@ -37,7 +43,6 @@ const Drinks = () =>{
                 )
                 })
             }
- 
         </div>    
         </>
     )
