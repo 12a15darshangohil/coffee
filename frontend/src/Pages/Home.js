@@ -103,8 +103,6 @@ function Home(){
                         <button className='text-white bg-[#00754A] hover:bg-[#1e3932] px-6 py-2 rounded-full text-[12px] ADD_item_Btn'>Add Item</button>
                       </div>
                     </div>
-
-
             </div>
           </div>
         </div>
