@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-const Merchandise = () => {
-    const [merchandise, setmerchandise] = useState([]);
+import React, { useEffect, useState } from "react";
+const ReadyToEat = () => {
+    const [readyToEat, setReadyToEat] = useState([]);
 
     useEffect(() => {
         // Step 2: Fetch data from API
-        fetch("http://127.0.0.1:8000/api/merchandise/")
+        fetch("http://127.0.0.1:8000/api/ready-to-eat/")
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                setmerchandise(data);
+                setReadyToEat(data);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -18,12 +18,12 @@ const Merchandise = () => {
     return (
         <>
             <div className="sm:px-0 md:w-4/5 m-auto ">
-                <p className="font-bold text-[#000000c4] mt-20 text-[18px] ">Mugs</p>
-                <p className="text-[#000000af] mt-2 mb-7">Artistic collection of ceramic mugs with acacia wood lids.</p>
+                <p className="font-bold text-[#000000c4] mt-20 text-[18px] ">Wholebeans</p>
+                <p className="text-[#000000af] mt-2 mb-7">Exclusive range of coffee beans roasted to perfection.</p>
             </div>
             <div className=" sm:px-0 md:w-4/5 m-auto flex flex-wrap items-center mb-24 ">
                 {
-                    merchandise.map((data, item) => {
+                    readyToEat.map((data, item) => {
                         return (
                             <>
                                 <div className='flex w-[420px]  px-4 bg-[#F9F9F9] py-5 rounded-[8px] item_container mr-[28px] my-[15px] scaleA'>
@@ -75,4 +75,4 @@ const Merchandise = () => {
         </>
     )
 }
-export default Merchandise;
+export default ReadyToEat;

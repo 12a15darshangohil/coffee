@@ -38,9 +38,20 @@ const Food = () => {
                                     </div>
                                     <div className='flex flex-col '>
                                         <div className='px-4 mb-[5px]' style={{ minHeight: "150px" }}>
-                                            <div className='mb-1'>
-                                                <img src="https://www.starbucks.in/assets/icon/veg.svg" alt="veg-item" style={{ width: '16px', height: '16px' }} />
-                                            </div>
+                                            {food.nonVeg &&
+                                                <>
+                                                    <div className='mb-1'>
+                                                        <img src="https://www.starbucks.in/assets/icon/nonveg.svg" alt="nonveg-item" style={{ width: '16px', height: '16px' }} />
+                                                    </div>
+                                                </>
+                                            }
+                                            {!food.nonVeg &&
+                                                <>
+                                                    <div className='mb-1'>
+                                                        <img src="https://www.starbucks.in/assets/icon/veg.svg" alt="veg-item" style={{ width: '16px', height: '16px' }} />
+                                                    </div>
+                                                </>
+                                            }
                                             <div className='mb-1.5 text-[18px] font-medium'>
                                                 {food.title}
                                             </div>
@@ -52,7 +63,7 @@ const Food = () => {
                                             </div>
                                         </div>
                                         <div className='flex flex-row justify-between px-3'>
-                                            <div className='text-[20px] font-serif font-bold'>${food.price}</div>
+                                            <div className='text-[20px] font-serif font-bold'>₹ {food.price}</div>
                                             <div className='px-6 py-2 bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item'>Add Item</div>
                                         </div>
                                     </div>

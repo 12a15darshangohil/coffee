@@ -51,7 +51,7 @@ const Drinks = () => {
                                     </div>
                                 </div>
                                 <div className='flex flex-row justify-between px-3'>
-                                    <div className='text-[20px] font-serif font-bold'>${drink.price || '341'}</div>
+                                    <div className='text-[20px] font-serif font-bold'>₹ {drink.price}</div>
                                     <div className='px-6 py-2 bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item'>Add Item</div>
                                 </div>
                             </div>
