@@ -29,10 +29,10 @@ const Drinks = () => {
                     drinks.map((drink, index) => (
                         <div key={index} className='flex w-[420px] px-4 bg-[#F9F9F9] py-5 rounded-[8px] item_container mr-[28px] my-[15px] scaleA'>
                             <div>
-                                <img src={drink.img || 'https://starbucksstatic.cognizantorderserv.com/Items/Small/M107781.jpg'} 
-                                    className='rounded-full' 
-                                    style={{ maxWidth: "99px", maxHeight: "99px" }} 
-                                    alt={drink.title} 
+                                <img src={drink.img}
+                                    className='rounded-full'
+                                    style={{ maxWidth: "99px", maxHeight: "99px" }}
+                                    alt={drink.title}
                                 />
                             </div>
                             <div className='flex flex-col'>
@@ -41,10 +41,13 @@ const Drinks = () => {
                                         <img src="https://www.starbucks.in/assets/icon/veg.svg" alt="veg-item" style={{ width: '16px', height: '16px' }} />
                                     </div>
                                     <div className='mb-1.5 text-[18px] font-medium'>
-                                        {drink.title || 'Iced Stardust Macchiato'}
+                                        {drink.title}
                                     </div>
                                     <div className='mb-2 text-[13px] font-normal text-[#212529]'>
-                                        {drink.description || 'Super smooth and creamy vanilla half and half crowned with s...'}
+                                        {drink.text}
+                                    </div>
+                                    <div className='mb-2 text-[13px] font-normal text-[#212529]'>
+                                        {drink.kcal}
                                     </div>
                                 </div>
                                 <div className='flex flex-row justify-between px-3'>
