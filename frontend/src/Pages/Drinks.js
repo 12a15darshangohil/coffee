@@ -41,7 +41,7 @@ const Drinks = () => {
                                         <img src="https://www.starbucks.in/assets/icon/veg.svg" alt="veg-item" style={{ width: '16px', height: '16px' }} />
                                     </div>
                                     <div className='mb-1.5 text-[18px] font-medium'>
-                                        {drink.title || 'Iced Stardust Macchiato'}
+                                        {drink.title}
                                     </div>
                                     <div className='mb-2 text-[13px] font-normal text-[#2125297d] FontTitle'>
                                         {drink.text || 'Super smooth and creamy vanilla half and half crowned with s...'}
