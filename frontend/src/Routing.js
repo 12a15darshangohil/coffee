@@ -3,6 +3,9 @@ import App from "./App";
 import Home from "./Pages/Home";
 import Order from "./Pages/Order";
 import Drinks from "./Pages/Drinks";
+import Food from "./Pages/Food";
+import CoffeeAtHome from "./Pages/Coffe At Home";
+import Merchandise from "./Pages/Merchandies";
 function Routing(){
     return(
         <>
@@ -12,7 +15,9 @@ function Routing(){
                     <Route index element={<Home/>}></Route>
                     <Route path="Order" element={<Order/>}>
                        <Route index element={<Drinks/>}></Route>
-                       <Route path="Food" element={<Drinks/>}></Route>
+                       <Route path="Food" element={<Food/>}></Route>
+                       <Route path="CoffeeAtHome" element={<CoffeeAtHome/>}></Route>
+                       <Route path="Merchandise" element={<Merchandise/>}></Route>
                     </Route>
                 </Route>
             </Routes>

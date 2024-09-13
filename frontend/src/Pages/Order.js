@@ -20,8 +20,9 @@ const Order =()=>{
                  <ul className="px-4  sm:px-0 md:w-4/5 m-auto flex items-center gap-5 text-[#0000007d] ">
                     <li className="pr-[40px] border-r border-r-[#D5D3CE]"><Link to="/Order">Bestseller</Link></li>
                     <li className="px-[40px] border-r border-r-[#D5D3CE]"><Link to="">Drinks</Link></li>
-                    <li className="px-[40px] border-r border-r-[#D5D3CE]"><Link>Food</Link></li>
-                    <li className="px-[40px] "><Link>Bestseller</Link></li>
+                    <li className="px-[40px] border-r border-r-[#D5D3CE]"><Link to="Food">Food</Link></li>
+                    <li className="px-[40px] border-r border-r-[#D5D3CE] "><Link to="Merchandise">Merchandise</Link></li>
+                    <li className="px-[40px] "><Link to="CoffeeAtHome">Coffee At Home</Link></li>
                  </ul>
             </div>
             <Outlet/>
