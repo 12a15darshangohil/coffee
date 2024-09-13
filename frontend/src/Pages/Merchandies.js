@@ -33,7 +33,7 @@ const Merchandise = () =>{
                             <div className='mb-1.5 text-[18px] font-medium mt-3 '>
                                 {Merchandise.title}
                             </div>
-                            <div className='mb-2 text-[13px] font-normal  text-[#2125298d] FontTitle '>
+                            <div className='mb-2 text-[13px] font-normal  text-[#2125297e] FontTitle '>
                                 {Merchandise.text}
                             </div>
                         </div>
