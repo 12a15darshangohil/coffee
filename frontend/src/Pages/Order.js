@@ -29,7 +29,8 @@ const Order =()=>{
                     <li className="px-[40px] border-r border-r-[#D5D3CE] "><Link to="drinks" className={`${categoriescss} ${ path === "drinks" ? categoriesAcss : ""}`}>Drinks</Link></li>
                     <li className="px-[40px] border-r border-r-[#D5D3CE] "><Link to="Food" className={`${categoriescss} ${ path === "Food" ? categoriesAcss : ""}`}>Food</Link></li>
                     <li className="px-[40px] border-r border-r-[#D5D3CE]  "><Link to="Merchandise" className={` ${categoriescss} ${ path === "Merchandise" ? categoriesAcss : ""}`}>Merchandise</Link></li>
-                    <li className="px-[40px] "><Link to="CoffeeAtHome" className={` ${categoriescss} ${ path === "CoffeeAtHome" ? categoriesAcss : ""}`}>Coffee At Home</Link></li>
+                    <li className="px-[40px] border-r border-r-[#D5D3CE]"><Link to="CoffeeAtHome" className={` ${categoriescss} ${ path === "CoffeeAtHome" ? categoriesAcss : ""}`}>Coffee At Home</Link></li>
+                    <li className="px-[40px] "><Link to="ReadyToEat" className={` ${categoriescss} ${ path === "ReadyToEat" ? categoriesAcss : ""}`}>Ready To Eat</Link></li>
                  </ul>
             </div>
             <Outlet/>
