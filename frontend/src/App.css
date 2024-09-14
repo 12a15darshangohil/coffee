@@ -52,6 +52,9 @@ body{
 .FontTitle{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+.FontKCL{
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
 @keyframes zoom {
   from{
      transform: scale(0);

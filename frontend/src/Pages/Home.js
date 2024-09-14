@@ -43,7 +43,7 @@ function Home(){
                   </a>
 
                   <a className="flex justify-center items-center flex-col " >
-                    <Link to="/Order/Food"><img src={"https://www.starbucks.in/assets/icon/ReadyToEat.webp"} className="w-32 h-32 drop-shadow-xl sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
+                    <Link to="/Order/ReadyToEat"><img src={"https://www.starbucks.in/assets/icon/ReadyToEat.webp"} className="w-32 h-32 drop-shadow-xl sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
                     <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Ready To Eat</p>
                   </a>
           </div>

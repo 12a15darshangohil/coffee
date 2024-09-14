@@ -23,45 +23,29 @@ const Merchandise = () => {
             </div>
             <div className=" sm:px-0 md:w-4/5 m-auto flex flex-wrap items-center mb-24 ">
                 {
-                    merchandise.map((data, item) => {
+                    merchandise.map((merchandise, index) => {
                         return (
                             <>
-                                <div className='flex w-[420px]  px-4 bg-[#F9F9F9] py-5 rounded-[8px] item_container mr-[28px] my-[15px] scaleA'>
+                                <div key={index} className='flex w-[420px]  px-4 bg-[#F9F9F9] py-5 rounded-[8px] item_container mr-[28px] my-[15px] scaleA'>
                                     <div>
-                                        <img src={data.img}
+                                        <img src={merchandise.img}
                                             className='rounded-full'
                                             style={{ maxWidth: "99px", maxHeight: "99px" }}
-                                            alt={data.title}
+                                            alt={merchandise.title}
                                         />
                                     </div>
                                     <div className='flex flex-col '>
                                         <div className='px-4 mb-[5px]' style={{ minHeight: "150px" }}>
-                                            {data.nonVeg &&
-                                                <>
-                                                    <div className='mb-1'>
-                                                        <img src="https://www.starbucks.in/assets/icon/nonveg.svg" alt="nonveg-item" style={{ width: '16px', height: '16px' }} />
-                                                    </div>
-                                                </>
-                                            }
-                                            {!data.nonVeg &&
-                                                <>
-                                                    <div className='mb-1'>
-                                                        <img src="https://www.starbucks.in/assets/icon/veg.svg" alt="veg-item" style={{ width: '16px', height: '16px' }} />
-                                                    </div>
-                                                </>
-                                            }
-                                            <div className='mb-1.5 text-[18px] font-medium'>
-                                                {data.title}
+
+                                            <div className='mb-1.5 text-[17px] font-medium mt-2'>
+                                                {merchandise.title}
                                             </div>
-                                            <div className='mb-2 text-[13px] font-normal text-[#212529]'>
-                                                {data.text}
-                                            </div>
-                                            <div className='mb-2 text-[13px] font-normal text-[#212529]'>
-                                                {data.kcal}
+                                            <div className='mb-2 text-[13px] font-normal text-[#21252976] FontTitle'>
+                                                {merchandise.text}
                                             </div>
                                         </div>
                                         <div className='flex flex-row justify-between px-3'>
-                                            <div className='text-[20px] font-serif font-bold'>₹ {data.price}</div>
+                                            <div className='text-[20px] font-serif '>₹ {merchandise.price}</div>
                                             <div className='px-6 py-2 bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item'>Add Item</div>
                                         </div>
                                     </div>

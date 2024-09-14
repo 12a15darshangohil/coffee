@@ -7,7 +7,7 @@ import Food from "./Pages/Food";
 import CoffeeAtHome from "./Pages/Coffe At Home";
 import Merchandise from "./Pages/Merchandies";
 import Coffeculture from "./Pages/Coffeeculture";
-import ReadyToEat from "./Pages/ReadyToEat";
+import ReadyToEat from "./Pages/Ready To Eat";
 function Routing(){
     return(
         <>

@@ -55,15 +55,15 @@ const Food = () => {
                                             <div className='mb-1.5 text-[18px] font-medium'>
                                                 {food.title}
                                             </div>
-                                            <div className='mb-2 text-[13px] font-normal text-[#212529]'>
-                                                {food.text}
-                                            </div>
-                                            <div className='mb-2 text-[13px] font-normal text-[#212529]'>
+                                            <div className='mb-2 text-[13px] FontKCL text-[#21252963]'>
                                                 {food.kcal}
+                                            </div>
+                                            <div className='mb-2 text-[13px] font-normal text-[#21252976] FontTitle'>
+                                                {food.text}
                                             </div>
                                         </div>
                                         <div className='flex flex-row justify-between px-3'>
-                                            <div className='text-[20px] font-serif font-bold'>₹ {food.price}</div>
+                                            <div className='text-[20px] font-serif font-normal '>₹ {food.price}</div>
                                             <div className='px-6 py-2 bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item'>Add Item</div>
                                         </div>
                                     </div>
