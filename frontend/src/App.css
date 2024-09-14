@@ -55,6 +55,9 @@ body{
 .FontKCL{
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
+.serch_body{
+  background-color: white;
+}
 @keyframes zoom {
   from{
      transform: scale(0);

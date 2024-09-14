@@ -1,7 +1,12 @@
 import React from 'react';
-import { Link,useLocation } from 'react-router-dom'
+import { Link,useLocation,useNavigate } from 'react-router-dom'
 function Header(){
   const Location=useLocation();
+  const navigatee = useNavigate();
+  const serch = ()=>{
+     let data = document.getElementById("serchh").value;
+     navigatee("serch",{ state: {data:data} })
+}
   return(
     <>
        <div className='flex justify-center p-[15px] shadow-md w-full border-b-[#DEE2E6] border-b-4 bg-white'>
@@ -16,13 +21,12 @@ function Header(){
         </div>
         <div className=' text-xl text-slate-500 w-full max-w-[300px] shadow-md flex my-auto py-2 px-5 rounded-full mr-[80px] '>
              <img src="	https://www.starbucks.in/assets/icon/search.svg"></img>
-            <input type="text" className='text-sm w-full bg-transparent border-none outline-none px-3' placeholder="Looking for something specific ?" />
+            <input type="text" id="serchh" className='text-sm w-full bg-transparent border-none outline-none px-3' placeholder="Looking for something specific ?" onClick={serch} />
         </div>
         <div className='text-xl text-slate-500 my-auto ' >
             <img src="https://www.starbucks.in/assets/icon/account_thin.svg" />
         </div>
        </div>
-
     </>
   )
 }
