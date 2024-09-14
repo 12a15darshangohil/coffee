@@ -1,5 +1,4 @@
-import { useEffect, useState,} from "react";
-import {  } from "react-router-dom";
+import { useEffect, useState} from "react";
 const Serch = () =>{
     let [FinalData,setFinalData]=useState([])
     const [FinalList,setFinalList]=useState([])
@@ -58,7 +57,7 @@ const Serch = () =>{
         console.log(value)
     };
     return(<>
-    <div className="w-[80%] m-auto my-2"> Home  &gt;  SerchRecent</div>
+    <div className="w-[80%] m-auto my-3 text-[#000000a4]"> Home  &gt;  Searches    </div>
         <div className='bg-[#1e3932] py-2 sm:py-6'>
             <div className=' text-white  text-lg tracking-wide w-full'>
                 <div className='px-4  sm:px-0 md:w-4/5 m-auto flex justify-between items-center gap-5'>

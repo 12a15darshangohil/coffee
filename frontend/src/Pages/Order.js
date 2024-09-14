@@ -7,11 +7,9 @@ const Order =()=>{
     let categoriesAcss="border-b-[#4A8A66] border-b-2 font-bold pb-[15px] text-[#4A8A66]"
     useEffect(()=>{
         document.body.className="Order_Body";
-        setPath(Location.pathname.split('/')[2])
-        if( Location.pathname.split('/')[2] == undefined){
-            setPath("")
-        }
-    })
+        const currentPath = Location.pathname.split('/')[2];
+        setPath(currentPath ? currentPath : "");
+    },[])
     return(
         <>
 

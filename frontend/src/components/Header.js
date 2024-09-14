@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link,useLocation,useNavigate } from 'react-router-dom'
 function Header(){
-  const Location=useLocation();
+  const Location = useLocation();
   const navigatee = useNavigate();
   const serch = ()=>{
      navigatee("serch")
 }
   return(
     <>
-       <div className='flex justify-center p-[15px] shadow-md w-full border-b-[#DEE2E6] border-b-4 bg-white'>
+       <div className='flex justify-center p-[15px] shadow-md w-full border-b-[#DEE2E6] border-b-2 bg-white'>
         <div className='min-w-[40px] mr-[80px] max-w-[100px] '>
             <img src={`${process.env.PUBLIC_URL}/Logo.png`} className=' h-[50px]' />
         </div>
