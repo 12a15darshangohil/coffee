@@ -8,6 +8,7 @@ import CoffeeAtHome from "./Pages/Coffe At Home";
 import Merchandise from "./Pages/Merchandies";
 import Coffeculture from "./Pages/Coffeeculture";
 import ReadyToEat from "./Pages/Ready To Eat";
+import serch from "./Pages/Serch";
 function Routing(){
     return(
         <>
@@ -24,6 +25,7 @@ function Routing(){
                        <Route path="ReadyToEat" element={<ReadyToEat/>}></Route>
                     </Route>
                     <Route path="Coffeculture" element={<Coffeculture/>}></Route>
+                    <Route path="Serch" element={ <serch/>}></Route>
                 </Route>
             </Routes>
            </BrowserRouter>
