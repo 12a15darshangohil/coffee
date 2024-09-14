@@ -1,7 +1,6 @@
 import { useEffect, useState,} from "react";
-import { useLocation } from "react-router-dom";
+import {  } from "react-router-dom";
 const Serch = () =>{
-    let Location = useLocation();
     let [FinalData,setFinalData]=useState([])
     const [FinalList,setFinalList]=useState([])
     useEffect(async ()=>{
@@ -64,7 +63,7 @@ const Serch = () =>{
             <div className=' text-white  text-lg tracking-wide w-full'>
                 <div className='px-4  sm:px-0 md:w-4/5 m-auto flex justify-between items-center gap-5'>
                 <img src="	https://www.starbucks.in/assets/icon/search.svg" className=""></img>
-                <input type="text" id="serch" className='text-sm w-full bg-white border-none rounded-[20px] outline-none p-4 text-[black]'  placeholder="Looking for something specific ?" onChange={searching} />
+                <input type="text" id="serch" className='text-sm w-full bg-white border-none rounded-[20px] outline-none p-4 text-[black]' placeholder="Looking for something specific ?" onChange={searching}  />
                 </div>
             </div>
         </div>
