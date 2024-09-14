@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 # item data
 class Drink(models.Model):
     img = models.URLField(max_length=500, blank=True)
@@ -20,6 +21,7 @@ class Food(models.Model):
     text = models.TextField(blank=True)
     kcal = models.CharField(blank=True, null=True, max_length=150)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    nonVeg = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title if self.title else "Unnamed Item"
@@ -53,6 +55,7 @@ class ReadyToEat(models.Model):
     text = models.TextField(blank=True)
     kcal = models.CharField(blank=True, null=True, max_length=150)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    nonVeg = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title if self.title else "Unnamed Item"
