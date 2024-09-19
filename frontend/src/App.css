@@ -23,6 +23,7 @@ body{
 .Order_Body{
   background-color: rgba(255, 255, 255, 0.847);
 }
+
 .scrollbar-none::-webkit-scrollbar{
   display: none;
 }
