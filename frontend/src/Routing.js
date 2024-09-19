@@ -10,6 +10,7 @@ import Coffeculture from "./Pages/Coffeeculture";
 import ReadyToEat from "./Pages/Ready To Eat";
 import serch from "./Pages/Serch";
 import Serch from "./Pages/Serch";
+import Cart from "./Pages/Cart";
 function Routing(){
     return(
         <>
@@ -27,7 +28,7 @@ function Routing(){
                     </Route>
                     <Route path="Coffeculture" element={<Coffeculture/>}></Route>
                     <Route path="Serch" element={<Serch/>}></Route>
-
+                    <Route path="Cart" element={<Cart/>}></Route>
                 </Route>
             </Routes>
            </BrowserRouter>

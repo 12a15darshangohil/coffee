@@ -16,7 +16,7 @@ function Header(){
           <a href="/" className={`hover:text-[#4A8A66] ${Location.pathname.split('/')[1]=="" ? 'text-[#00754A] font-bold border-b-2 border-b-[#00754A] pb-2':""}`}>Home</a>
           <Link to="/" className={`hover:text-[#4A8A66] ${Location.pathname.split('/')[1]=="gift" ? 'text-[#00754A] font-bold':""}`}>Gift</Link>
           <Link to="/Order" className={`hover:text-[#4A8A66] ${Location.pathname.split('/')[1]=="Order" ? 'text-[#00754A] font-bold border-b-2 border-b-[#00754A] pb-2':""}`}>Order </Link>
-          <Link to="/" className='hover:text-[#4A8A66]'>Pay</Link>
+          <Link to="/Cart" className={`hover:text-[#4A8A66] ${Location.pathname.split('/')[1]=="Cart" ? 'text-[#00754A] font-bold border-b-2 border-b-[#00754A] pb-2':""}`}>Pay</Link>
         </div>
         <div className=' text-xl text-slate-500 w-full max-w-[300px] shadow-md flex my-auto py-2 px-5 rounded-full mr-[80px] ' onClick={serch} >
              <img src="	https://www.starbucks.in/assets/icon/search.svg"></img>
