@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 
@@ -62,3 +64,13 @@ class ReadyToEat(models.Model):
 
 
 # item data end
+
+
+class CoffeeCart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    cart_details = models.JSONField()
+    added_time = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        title = self.cart_details.get("title")
+        return f"Cart for {self.user.username}: {title}"

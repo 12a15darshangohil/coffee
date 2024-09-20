@@ -2,19 +2,69 @@ import { useState, useEffect } from "react";
 
 const Drinks = () => {
     const [drinks, setDrinks] = useState([]);
+    const [data, setData] = useState(null);
+    const [userId, setUserId] = useState(undefined);
 
     useEffect(() => {
+        fetch('http://localhost:8000/api/user-auth/')
+            .then(response => response.json())
+            .then(data => {
+                if (data.user) {
+                    setUserId(data.user.id)
+                    setData(data.user)
+                    // console.log("Cart data:", data.user.cart);
+                } else {
+                    console.log("Authentication failed:", data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+
         // Step 2: Fetch data from API
         fetch("http://127.0.0.1:8000/api/drink/")
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 setDrinks(data);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
     }, []);
+
+    const addToCart = (drink) => {
+        let askCart = window.confirm("Do You want to add item into cart?")
+        if (askCart) {
+            const cartItem = {
+                user_id: userId,
+                cart_details: {
+                    title: drink.title,
+                    price: drink.price,
+                    img: drink.img,
+                    description: drink.text,
+                }
+            };
+
+            fetch('http://localhost:8000/api/coffee-cart/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(cartItem),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Item added to cart successfully:", data);
+                })
+                .catch(error => {
+                    console.error("Error adding item to cart:", error);
+                });
+        }
+    };
 
 
     return (
@@ -49,7 +99,7 @@ const Drinks = () => {
                                 </div>
                                 <div className='flex flex-row justify-between px-3'>
                                     <div className='text-[20px] font-serif font-normal'>₹ {drink.price}</div>
-                                    <div className='px-6 py-2 bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item'>Add Item</div>
+                                    <button onClick={() => addToCart(drink)} className='px-6 py-2 bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item'>Add Item</button>
                                 </div>
                             </div>
                         </div>
