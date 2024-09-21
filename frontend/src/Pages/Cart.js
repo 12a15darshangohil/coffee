@@ -135,10 +135,10 @@ function Cart() {
             })
                 .then(response => response.json())
                 .then(data => {
+
                     if (data.message) {
                         console.log(data.message);
-                        if( cartItems.length == 1)
-                            window.location.reload(); 
+                        console.log(cartItems.length)
                     } else {
                         console.error(data.error);
                     }
