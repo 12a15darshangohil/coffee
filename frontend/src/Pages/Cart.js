@@ -15,6 +15,28 @@ function Cart() {
                     setUserId(data.user.id);
                     setData(data.user);
                     setCartItems(data.user.cart || []);
+                    let dummyCart=[]
+                    data.user.cart.map( items =>{
+                        let checkItems = true
+                        console.log(items)
+                        dummyCart.map( items2 =>{
+                            if( items.cart_details.title == items2.cart_details.title){
+                                checkItems=false
+                                    items2.cart_details.quantities = items2.cart_details.quantities+1
+                            }     
+                        })
+                        if(checkItems){
+                            items.cart_details.quantities = 1;
+                            dummyCart.push(items)
+                        }
+                    })
+                    console.log(dummyCart)
+                    setCartItems(dummyCart)
+                    let dummyquantities={}
+                    dummyCart.map(items=>{
+                         dummyquantities[items.cart_details.title]=items.cart_details.quantities
+                    })
+                    setQuantities(dummyquantities)
                     if (data.user.cart) {
                         setDeliveryFee(100)
                     }
@@ -35,10 +57,9 @@ function Cart() {
 
     // Function to handle quantity changes
     const handleQuantityChange = (title, change) => {
-        setQuantities(prev => ({
-            ...prev,
-            [title]: Math.max((prev[title] || 1) + change, 1) // Prevent zero or negative quantities
-        }));
+        setQuantities(prev =>({
+            ...prev,[title]:prev[title]+change
+        }))
     };
 
 
@@ -89,7 +110,7 @@ function Cart() {
                                     <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold" onClick={() => handleQuantityChange(item.cart_details.title, -1)}>
                                         <i className="ri-subtract-fill"></i>
                                     </div>
-                                    <div className="px-5 inline">{quantities[item.cart_details.title] || 1}</div>
+                                    <div className="px-5 inline">{quantities[item.cart_details.title]}</div>
                                     <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold" onClick={() => handleQuantityChange(item.cart_details.title, 1)}>
                                         <i className="ri-add-fill"></i>
                                     </div>
@@ -123,7 +144,7 @@ function Cart() {
                             <div>₹ {total.toFixed(2)}</div>
                         </div>
                     </div>
-                    <div className="w-[80%] mx-auto bg-[#979797] px-4 py-5 text-center rounded-[15px] text-white item_container font-bold text-[19px]" onClick={() => { alert("Order Placed Successfully"); }}>
+                    <div className="w-[80%] mx-auto bg-[#979797] px-4 py-5 text-center rounded-[15px] text-white item_container font-bold text-[19px] mb-14" onClick={() => { alert("Order Placed Successfully"); }}>
                         Place Order
                     </div>
                 </>
