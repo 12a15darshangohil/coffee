@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link,useLocation,useNavigate } from 'react-router-dom'
+import Login from '../Pages/Login';
 function Header(){
   const Location = useLocation();
   const navigatee = useNavigate();
+  let [login ,setLogin]=useState(false)
+  const Slogin=(value)=>{
+          setLogin(value)
+  }
   const serch = ()=>{
      navigatee("serch")
 }
@@ -22,10 +27,11 @@ function Header(){
              <img src="	https://www.starbucks.in/assets/icon/search.svg"></img>
             <input type="text" id="serchh" className='text-sm w-full bg-transparent border-none outline-none px-3' placeholder="Looking for something specific ?"  />
         </div>
-        <div className='text-xl text-slate-500 my-auto ' >
+        <div className='text-xl text-slate-500 my-auto ' onClick={()=>{setLogin(true)}}>
             <img src="https://www.starbucks.in/assets/icon/account_thin.svg" />
         </div>
        </div>
+       {login && <Login skip={Slogin}/>}
     </>
   )
 }
