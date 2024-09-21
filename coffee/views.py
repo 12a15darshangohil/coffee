@@ -10,14 +10,17 @@ from .serializers import (
     ReadyToEatSerializer,
 )
 
+from django.contrib.auth.models import User
 from django.views import View
 from django.utils.decorators import method_decorator
+
+import json
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 # import models
-from .models import Drink, Food, Merchandise, CoffeeAtHome, ReadyToEat
+from .models import Drink, Food, Merchandise, CoffeeAtHome, ReadyToEat, CoffeeCart
 
 
 # Create your views here.
@@ -114,4 +117,87 @@ class ReadytoEatListCreateAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# api view end ------------------------------------------------
+@csrf_exempt  # Disable CSRF for API requests, you can set up CSRF tokens instead for security.
+def add_to_cart(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            user = User.objects.get(id=data["user_id"])
+
+            cart = CoffeeCart.objects.create(
+                user=user,
+                cart_details=data["cart_details"],
+            )
+
+            return JsonResponse(
+                {"message": "Item added to cart successfully!"}, status=201
+            )
+        except User.DoesNotExist:
+            return JsonResponse({"error": "User not found"}, status=404)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=400)
+    return JsonResponse({"error": "Invalid request method"}, status=405)
+
+
+@csrf_exempt
+def remove_item_from_cart(request, item_id):
+    if request.method == "POST":
+        try:
+            # Assuming the user is authenticated and you have access to the user instance
+            # user = request.user  # or however you get the current user
+            user = 1  # for now
+            cart_item = CoffeeCart.objects.get(id=item_id, user=user)
+
+            # Remove the item from the cart
+            cart_item.delete()
+            return JsonResponse(
+                {"message": "Item removed from cart successfully."}, status=200
+            )
+
+        except CoffeeCart.DoesNotExist:
+            return JsonResponse({"error": "Item not found in cart."}, status=404)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    return JsonResponse({"error": "Invalid request method"}, status=405)
+
+
+@csrf_exempt
+def user_authentication(request):
+    # if user.is_authenticated:
+    if True:
+        try:
+            id = 1
+            user = User.objects.get(id=id)
+
+            cart = CoffeeCart.objects.filter(user=user)
+            cart_data = (
+                [
+                    {
+                        "id": item.id,
+                        "cart_details": item.cart_details,
+                        "time": item.added_time,
+                    }
+                    for item in cart
+                ]
+                if cart.exists()
+                else None
+            )
+            # Return user data along with cart data in the response
+            user_data = {
+                "id": user.id,
+                "username": user.username,
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+                "email": user.email,
+                "cart": cart_data,  # Include the cart details
+            }
+
+            return JsonResponse(
+                {"message": "Authentication successful", "user": user_data},
+                status=200,
+            )
+
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Invalid request method"}, status=405)

@@ -6,9 +6,12 @@ from .views import (
     MerchandiseListCreateAPIView,
     CoffeeAtHomeListCreateAPIView,
     ReadytoEatListCreateAPIView,
+    add_to_cart,
+    user_authentication,
+    remove_item_from_cart
 )
 
-
+# for fetch data
 urlpatterns = [
     path("drink/", DrinkListCreateAPIView.as_view(), name="drinks"),
     path("food/", FoodListCreateAPIView.as_view(), name="food"),
@@ -19,4 +22,16 @@ urlpatterns = [
         name="coffee-at-home",
     ),
     path("ready-to-eat/", ReadytoEatListCreateAPIView.as_view(), name="ready-to-eat"),
+]
+
+
+# for cart
+urlpatterns += [
+    path("coffee-cart/", add_to_cart, name="coffee-cart"),
+    path("user-auth/", user_authentication, name="user_authentication"),
+    path(
+        "cart/remove/<int:item_id>/",
+        remove_item_from_cart,
+        name="remove-item-from-cart",
+    ),
 ]
