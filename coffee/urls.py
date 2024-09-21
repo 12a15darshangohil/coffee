@@ -30,7 +30,7 @@ urlpatterns += [
     path("coffee-cart/", add_to_cart, name="coffee-cart"),
     path("user-auth/", user_authentication, name="user_authentication"),
     path(
-        "cart/remove/<int:item_id>/",
+        "cart/remove/",
         remove_item_from_cart,
         name="remove-item-from-cart",
     ),

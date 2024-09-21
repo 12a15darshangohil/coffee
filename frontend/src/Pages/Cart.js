@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { json } from "react-router-dom";
 
 function Cart() {
     const [quantities, setQuantities] = useState({}); // Track quantities for each item
@@ -63,12 +64,49 @@ function Cart() {
     };
 
 
+    const addToCart = (item) => {
+            const cartItem = {
+                user_id: userId,
+                cart_details: {
+                    title: item.cart_details.title,
+                    price: item.cart_details.price,
+                    img: item.cart_details.img,
+                }
+            };
+
+            fetch('http://localhost:8000/api/coffee-cart/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(cartItem),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Item added to cart successfully:", data);
+                })
+                .catch(error => {
+                    console.error("Error adding item to cart:", error);
+                });
+    };
+
+
     // remove from cart
-    const removeItemFromCart = (itemId) => {
+    const removeItemFromCart = (title ,ress) => {
+        if(ress){
         let askRemove = window.confirm("Do You want to remove item from cart?")
         if (askRemove) {
-            fetch(`http://localhost:8000/api/cart/remove/${itemId}/`, {
-                method: 'POST'
+            fetch(`http://localhost:8000/api/cart/remove/`, {
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify({Itemtitle:title,res:true})
             })
                 .then(response => response.json())
                 .then(data => {
@@ -81,7 +119,27 @@ function Cart() {
                     }
                 })
                 .catch(error => console.error("Error:", error));
-        };
+        };}
+        else{
+            fetch(`http://localhost:8000/api/cart/remove/`, {
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify({Itemtitle:title,res:false})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        console.log(data.message);
+                        window.location.reload(); // This will refresh the entire page
+                        // Update state to reflect the item removal from the cart
+                    } else {
+                        console.error(data.error);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
     }
 
     return (
@@ -107,18 +165,18 @@ function Cart() {
                             <div className='mb-6 text-[20px] font-serif font-normal'>₹ {item.cart_details.price}</div>
                             <div className="justify-between flex">
                                 <div className="py-1.5 bg-[#80808014] rounded-[30px] text-[18px] font-bold text-[black] font-serif inline-block shadow-sm">
-                                    <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold" onClick={() => handleQuantityChange(item.cart_details.title, -1)}>
+                                    <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold" onClick={() => removeItemFromCart(item.cart_details.title,false)}>
                                         <i className="ri-subtract-fill"></i>
                                     </div>
                                     <div className="px-5 inline">{quantities[item.cart_details.title]}</div>
-                                    <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold" onClick={() => handleQuantityChange(item.cart_details.title, 1)}>
+                                    <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold" onClick={() => addToCart(item)}>
                                         <i className="ri-add-fill"></i>
                                     </div>
                                 </div>
                                 <i
                                     className="ri-delete-bin-6-fill text-[#0000009e]"
                                     style={{ fontSize: "22px" }}
-                                    onClick={() => removeItemFromCart(item.id)} // Call the function on click
+                                    onClick={() => removeItemFromCart(item.cart_details.title,true)} // Call the function on click
                                 ></i>
                             </div>
                         </div>

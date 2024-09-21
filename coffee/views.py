@@ -140,16 +140,25 @@ def add_to_cart(request):
 
 
 @csrf_exempt
-def remove_item_from_cart(request, item_id):
+def remove_item_from_cart(request):
     if request.method == "POST":
         try:
             # Assuming the user is authenticated and you have access to the user instance
             # user = request.user  # or however you get the current user
             user = 1  # for now
-            cart_item = CoffeeCart.objects.get(id=item_id, user=user)
-
-            # Remove the item from the cart
-            cart_item.delete()
+            cart_item = CoffeeCart.objects.all()
+            dataa = json.loads(request.body)
+            if(dataa['res']):
+                for i in cart_item:
+                    data=i.cart_details
+                    if(data['title'] == dataa['Itemtitle'] ):
+                        i.delete()
+            else:
+                for i in cart_item:
+                    data=i.cart_details
+                    if(data['title'] == dataa['Itemtitle'] ):
+                        i.delete()
+                        break
             return JsonResponse(
                 {"message": "Item removed from cart successfully."}, status=200
             )
