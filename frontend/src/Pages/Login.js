@@ -13,6 +13,7 @@ const Login = ({skip}) => {
         let lpass= document.getElementById('lpass').value;
         if(lusername !=  '' & lpass != ""){
             alert('Login Successfully')
+            window.localStorage.setItem('loggedIn',true)
         }
         else{
             if(lusername ==  '')
@@ -28,7 +29,14 @@ const Login = ({skip}) => {
           let mobilenumber =document.getElementById('mobilenumber').value;
           let SCpass= document.getElementById('SCpassword').value;
           if(Susername !=  '' & mobilenumber != "" & SCpass != ""){
-            alert('Login Successfully')
+            fetch('',{
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({Susername:Susername,mobilenumber:mobilenumber,SCpass}),
+            })
+            alert('Create Account Successfully')
         }
         else{
             if(Susername ==  '')

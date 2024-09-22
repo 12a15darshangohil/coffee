@@ -198,18 +198,21 @@ function Cart() {
 
             {deliveryFee != 0 &&
                 <>
-                    <div className='flex w-[80%] flex-col px-4 bg-[#F9F9F9] py-5 rounded-[15px] item_container mx-auto my-[15px] font-serif scaleA'>
+                    <div className='flex w-[80%] flex-col px-4 bg-[#F9F9F9] py-5 rounded-[15px] item_container mx-auto my-[15px] scaleA'>
+                    <div className="flex justify-between w-full px-4 font-bold text-[#000000cb] font-serif mb-3">
+                            <div>Bill Details</div>
+                        </div>
                         <div className="flex justify-between w-full px-4 font-bold text-[#8080807f] mb-1.5">
-                            <div>Subtotal</div>
-                            <div>₹ {subtotal.toFixed(2)}</div>
+                            <div>Item total</div>
+                            <div className="font-serif">₹ {subtotal.toFixed(2)}</div>
                         </div>
                         <div className="flex justify-between w-full px-4 font-bold text-[#8080807f] mb-1.5">
                             <div>Delivery Fee</div>
-                            <div>₹ {deliveryFee}</div>
+                            <div className="font-serif">₹ {deliveryFee}</div>
                         </div>
                         <hr className="mt-3" />
-                        <div className="flex justify-between w-full px-4 font-serif text-[23px] font-bold text-[#000000cb] my-2">
-                            <div>Total</div>
+                        <div className="flex justify-between w-full px-4  text-[18px] font-bold text-[#000000cb] my-2 font-serif">
+                            <div>GRAND TOTAL</div>
                             <div>₹ {total.toFixed(2)}</div>
                         </div>
                     </div>

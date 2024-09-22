@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link,useLocation,useNavigate } from 'react-router-dom'
 import Login from '../Pages/Login';
-function Header(){
+function Header({value}){
   const Location = useLocation();
   const navigatee = useNavigate();
   let [login ,setLogin]=useState(false)
@@ -21,7 +21,12 @@ function Header(){
           <a href="/" className={`hover:text-[#4A8A66] ${Location.pathname.split('/')[1]=="" ? 'text-[#00754A] font-bold border-b-2 border-b-[#00754A] pb-2':""}`}>Home</a>
           <Link to="/" className={`hover:text-[#4A8A66] ${Location.pathname.split('/')[1]=="gift" ? 'text-[#00754A] font-bold':""}`}>Gift</Link>
           <Link to="/Order" className={`hover:text-[#4A8A66] ${Location.pathname.split('/')[1]=="Order" ? 'text-[#00754A] font-bold border-b-2 border-b-[#00754A] pb-2':""}`}>Order </Link>
-          <Link to="/Cart" className={`hover:text-[#4A8A66] ${Location.pathname.split('/')[1]=="Cart" ? 'text-[#00754A] font-bold border-b-2 border-b-[#00754A] pb-2':""}`}>Pay</Link>
+          <Link to="/Cart" className={` relative hover:text-[#4A8A66] ${Location.pathname.split('/')[1] == "Cart" ? 'text-[#00754A] font-bold border-b-2 border-b-[#00754A] pb-2' : ""}`} onClick={()=>{value.setnotify(false)}}>
+            <span class={`absolute left-9 top-1 flex h-2 w-2 ${value.notify ? 'block':'hidden'}`}>
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[red] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-[red]"></span>
+            </span>
+            Pay</Link>
         </div>
         <div className=' text-xl text-slate-500 w-full max-w-[300px] shadow-md flex my-auto py-2 px-5 rounded-full mr-[80px] ' onClick={serch} >
              <img src="	https://www.starbucks.in/assets/icon/search.svg"></img>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-const ReadyToEat = () => {
+const ReadyToEat = ({value}) => {
     const [readyToEat, setReadyToEat] = useState([]);
     const [data, setData] = useState(null);
     const [userId, setUserId] = useState(undefined);
@@ -109,7 +109,10 @@ const ReadyToEat = () => {
                                         </div>
                                         <div className='flex flex-row justify-between px-3'>
                                             <div className='text-[20px] font-serif '>₹ {data.price}</div>
-                                            <button onClick={() => addToCart(data)} className='px-6 py-2 bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item'>Add Item</button>
+                                            <button onClick={() => {
+                                                addToCart(data)
+                                                value.setnotify(true)
+                                            }} className='px-6 py-2 bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item'>Add Item</button>
                                         </div>
                                     </div>
                                 </div>

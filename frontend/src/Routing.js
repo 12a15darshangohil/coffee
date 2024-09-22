@@ -10,23 +10,25 @@ import Coffeculture from "./Pages/Coffeeculture";
 import ReadyToEat from "./Pages/Ready To Eat";
 import Serch from "./Pages/Serch";
 import Cart from "./Pages/Cart";
+import { useState } from "react";
 function Routing(){
+    let [notify,setnotify] =useState(false)
     return(
         <>
            <BrowserRouter>
             <Routes>
-                <Route path="/" element={<App/>}>
+                <Route path="/" element={<App value={{'notify':notify,'setnotify':setnotify}}/>}>
                     <Route index element={<Home/>}></Route>
                     <Route path="Order" element={<Order/>}>
-                       <Route index element={<Drinks/>}></Route>
-                       <Route path="drinks" element={<Drinks/>}></Route>
-                       <Route path="Food" element={<Food/>}></Route>
-                       <Route path="CoffeeAtHome" element={<CoffeeAtHome/>}></Route>
-                       <Route path="Merchandise" element={<Merchandise/>}></Route>
-                       <Route path="ReadyToEat" element={<ReadyToEat/>}></Route>
+                       <Route index element={<Drinks value={{'setnotify':setnotify}}/>}></Route>
+                       <Route path="drinks" element={<Drinks value={{'setnotify':setnotify}}/>}></Route>
+                       <Route path="Food" element={<Food value={{'setnotify':setnotify}}/>}></Route>
+                       <Route path="CoffeeAtHome" element={<CoffeeAtHome value={{'setnotify':setnotify}}/>}></Route>
+                       <Route path="Merchandise" element={<Merchandise value={{'setnotify':setnotify}}/>}></Route>
+                       <Route path="ReadyToEat" element={<ReadyToEat value={{'setnotify':setnotify}}/>}></Route>
                     </Route>
                     <Route path="Coffeculture" element={<Coffeculture/>}></Route>
-                    <Route path="Serch" element={<Serch/>}></Route>
+                    <Route path="Serch" element={<Serch value={{'setnotify':setnotify}}/>}></Route>
                     <Route path="Cart" element={<Cart/>}></Route>
                 </Route>
             </Routes>
