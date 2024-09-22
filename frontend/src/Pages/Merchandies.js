@@ -58,7 +58,6 @@ const Merchandise = () => {
                 })
                 .then(data => {
                     console.log("Item added to cart successfully:", data);
-                    alert("Item added successfully.")
                 })
                 .catch(error => {
                     console.error("Error adding item to cart:", error);

@@ -2,23 +2,7 @@ import { useEffect, useState } from "react";
 const Serch = () => {
     let [FinalData, setFinalData] = useState([])
     const [FinalList, setFinalList] = useState([])
-    const [data, setData] = useState(null);
-    const [userId, setUserId] = useState(undefined);
-
     useEffect(() => {
-        fetch('http://localhost:8000/api/user-auth/')
-            .then(response => response.json())
-            .then(data => {
-                if (data.user) {
-                    setUserId(data.user.id)
-                    setData(data.user)
-                    // console.log("Cart data:", data.user.cart);
-                } else {
-                    console.log("Authentication failed:", data.message);
-                }
-            })
-            .catch(error => console.error("Error:", error));
-
         const fetchData = async () => {
             try {
                 document.body.className = "serch_body";
@@ -57,42 +41,6 @@ const Serch = () => {
 
         fetchData();
     }, []);
-
-
-    const addToCart = (drink) => {
-
-        const cartItem = {
-            user_id: userId,
-            cart_details: {
-                title: drink.title,
-                price: drink.price,
-                img: drink.img,
-                description: drink.text,
-            }
-        };
-
-        fetch('http://localhost:8000/api/coffee-cart/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(cartItem),
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("Item added to cart successfully:", data);
-                alert("Item added successfully.")
-            })
-            .catch(error => {
-                console.error("Error adding item to cart:", error);
-            });
-    };
-
 
 
     const searching = () => {
@@ -171,7 +119,7 @@ const Serch = () => {
                                     </div>
                                     <div className='flex flex-row justify-between px-3'>
                                         <div className='text-[20px] font-serif font-normal '>₹ {food.price}</div>
-                                        <button onClick={() => addToCart(food)} className='px-6 py-2 bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item'>Add Item</button>
+                                        <div className='px-6 py-2 bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item'>Add Item</div>
                                     </div>
                                 </div>
                             </div>
