@@ -176,16 +176,16 @@ function Cart() {
                             <div className='mb-6 text-[20px] font-serif font-normal'>₹ {item.cart_details.price}</div>
                             <div className="justify-between flex">
                                 <div className="py-1.5 bg-[#80808014] rounded-[30px] text-[18px] font-bold text-[black] font-serif inline-block shadow-sm">
-                                    <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold" onClick={() => removeItemFromCart(item.cart_details.title,false)}>
+                                    <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold hover:bg-[#00000087] hover:text-white" onClick={() => removeItemFromCart(item.cart_details.title,false)}>
                                         <i className="ri-subtract-fill"></i>
                                     </div>
                                     <div className="px-5 inline">{quantities[item.cart_details.title]}</div>
-                                    <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold" onClick={() => addToCart(item)}>
+                                    <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold hover:bg-[#00000087] hover:text-white" onClick={() => addToCart(item)}>
                                         <i className="ri-add-fill"></i>
                                     </div>
                                 </div>
                                 <i
-                                    className="ri-delete-bin-6-fill text-[#0000009e]"
+                                    className="ri-delete-bin-6-fill text-[#0000009e] hover:text-[#ff0000dd]"
                                     style={{ fontSize: "22px" }}
                                     onClick={() => removeItemFromCart(item.cart_details.title,true)} // Call the function on click
                                 ></i>

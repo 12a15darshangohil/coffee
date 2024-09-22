@@ -116,7 +116,7 @@ const Food = ({value}) => {
                                                 addToCart(food)
                                                 value.setnotify(true)
                                             }
-                                            } className='px-6 py-2 bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item'>Add Item</button>
+                                            } className='px-6 py-2 bg-[#00754A] hover:bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item'>Add Item</button>
                                         </div>
                                     </div>
                                 </div>
