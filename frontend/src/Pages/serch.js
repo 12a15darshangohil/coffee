@@ -67,6 +67,39 @@ const Serch = () => {
         }
         console.log(value)
     };
+
+    const addToCart = (drink) => {
+        
+        const cartItem = {
+            user_id: 1,
+            cart_details: {
+                title: drink.title,
+                price: drink.price,
+                img: drink.img,
+                description: drink.text,
+            }
+        };
+
+        fetch('http://localhost:8000/api/coffee-cart/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(cartItem),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Item added to cart successfully:", data);
+            })
+            .catch(error => {
+                console.error("Error adding item to cart:", error);
+            });
+};
     return (<>
         <div className="w-[80%] m-auto my-3 text-[#000000a4]"> Home  &gt;  Searches    </div>
         <div className='bg-[#1e3932] py-2 sm:py-6'>
@@ -119,7 +152,7 @@ const Serch = () => {
                                     </div>
                                     <div className='flex flex-row justify-between px-3'>
                                         <div className='text-[20px] font-serif font-normal '>₹ {food.price}</div>
-                                        <div className='px-6 py-2 bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item'>Add Item</div>
+                                        <div className='px-6 py-2 bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item' onClick={()=>{addToCart(food)}}>Add Item</div>
                                     </div>
                                 </div>
                             </div>
