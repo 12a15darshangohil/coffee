@@ -34,8 +34,6 @@ const Food = () => {
 
 
     const addToCart = (item) => {
-        let askCart = window.confirm("Do You want to add item into cart?")
-        if (askCart) {
             const cartItem = {
                 user_id: userId,
                 cart_details: {
@@ -65,7 +63,6 @@ const Food = () => {
                 .catch(error => {
                     console.error("Error adding item to cart:", error);
                 });
-        }
     };
 
     return (

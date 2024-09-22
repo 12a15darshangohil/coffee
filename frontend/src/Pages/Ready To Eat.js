@@ -31,8 +31,7 @@ const ReadyToEat = () => {
     }, []);
 
     const addToCart = (item) => {
-        let askCart = window.confirm("Do You want to add item into cart?")
-        if (askCart) {
+    
             const cartItem = {
                 user_id: userId,
                 cart_details: {
@@ -41,7 +40,7 @@ const ReadyToEat = () => {
                     img: item.img,
                     description: item.text,
                 }
-            };
+            }
 
             fetch('http://localhost:8000/api/coffee-cart/', {
                 method: 'POST',
@@ -62,7 +61,6 @@ const ReadyToEat = () => {
                 .catch(error => {
                     console.error("Error adding item to cart:", error);
                 });
-        }
     };
 
 

@@ -8,9 +8,8 @@ import CoffeeAtHome from "./Pages/Coffe At Home";
 import Merchandise from "./Pages/Merchandies";
 import Coffeculture from "./Pages/Coffeeculture";
 import ReadyToEat from "./Pages/Ready To Eat";
-import Serch from "./Pages/Serch";
+import Serch from "./Pages/serch";
 import Cart from "./Pages/Cart";
-import Login from "./Pages/Login";
 function Routing(){
     return(
         <>

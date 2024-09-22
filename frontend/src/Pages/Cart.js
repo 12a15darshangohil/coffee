@@ -7,6 +7,7 @@ function Cart() {
     const [userId, setUserId] = useState(undefined);
     const [cartItems, setCartItems] = useState([]); // State to hold cart items
     const [deliveryFee, setDeliveryFee] = useState(0); // Example delivery fee
+    const [change,setChange]=useState(0)
 
     useEffect(() => {
         fetch('http://localhost:8000/api/user-auth/')
@@ -47,7 +48,7 @@ function Cart() {
                 }
             })
             .catch(error => console.error("Error:", error));
-    }, []);
+    }, [change]);
 
     // subtotal, total
     const subtotal = cartItems.reduce((total, item) => {
@@ -56,15 +57,8 @@ function Cart() {
     }, 0);
     const total = subtotal + deliveryFee;
 
-    // Function to handle quantity changes
-    const handleQuantityChange = (title, change) => {
-        setQuantities(prev =>({
-            ...prev,[title]:prev[title]+change
-        }))
-    };
 
-
-    const addToCart = (item) => {
+    const addToCart = async (item) => {
             const cartItem = {
                 user_id: userId,
                 cart_details: {
@@ -74,7 +68,7 @@ function Cart() {
                 }
             };
 
-            fetch('http://localhost:8000/api/coffee-cart/', {
+            await fetch('http://localhost:8000/api/coffee-cart/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,15 +87,20 @@ function Cart() {
                 .catch(error => {
                     console.error("Error adding item to cart:", error);
                 });
+            if(change)  {
+                setChange(0)
+            }  
+            else{
+                setChange(1)
+            }
     };
 
-
     // remove from cart
-    const removeItemFromCart = (title ,ress) => {
+    const removeItemFromCart = async (title ,ress) => {
         if(ress){
         let askRemove = window.confirm("Do You want to remove item from cart?")
         if (askRemove) {
-            fetch(`http://localhost:8000/api/cart/remove/`, {
+            await fetch(`http://localhost:8000/api/cart/remove/`, {
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json',
@@ -112,16 +111,22 @@ function Cart() {
                 .then(data => {
                     if (data.message) {
                         console.log(data.message);
-                        window.location.reload(); // This will refresh the entire page
-                        // Update state to reflect the item removal from the cart
+                        if( cartItems.length == 1)
+                             window.location.reload(); 
                     } else {
                         console.error(data.error);
                     }
                 })
                 .catch(error => console.error("Error:", error));
+                if(change)  {
+                    setChange(0)
+                }  
+                else{
+                    setChange(1)
+                }
         };}
         else{
-            fetch(`http://localhost:8000/api/cart/remove/`, {
+            await fetch(`http://localhost:8000/api/cart/remove/`, {
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json',
@@ -130,15 +135,21 @@ function Cart() {
             })
                 .then(response => response.json())
                 .then(data => {
+
                     if (data.message) {
                         console.log(data.message);
-                        window.location.reload(); // This will refresh the entire page
-                        // Update state to reflect the item removal from the cart
+                        console.log(cartItems.length)
                     } else {
                         console.error(data.error);
                     }
                 })
                 .catch(error => console.error("Error:", error));
+                if(change)  {
+                    setChange(0)
+                }  
+                else{
+                    setChange(1)
+                }
         }
     }
 
@@ -210,8 +221,9 @@ function Cart() {
 
             {deliveryFee == 0 &&
                 <>
-                    <div className="text-green-700 text-center mt-4 font-bold text-[19px]">
-                        No items found. Please explore.
+                    <div className="text-center mt-4 font-semibold text-[20px] w-full text-[#000000b7]">
+                        <img src='https://www.starbucks.in/assets/images/noSearchFound.svg' className="mx-auto"/>
+                        <div className="mt-7">No items found. Please explore.</div>
                     </div>
                 </>
             }
