@@ -8,7 +8,8 @@ from .views import (
     ReadytoEatListCreateAPIView,
     add_to_cart,
     user_authentication,
-    remove_item_from_cart
+    remove_item_from_cart,
+    login_view
 )
 
 # for fetch data
@@ -34,4 +35,8 @@ urlpatterns += [
         remove_item_from_cart,
         name="remove-item-from-cart",
     ),
+]
+
+urlpatterns += [
+    path("login/", login_view, name="login_api"),
 ]

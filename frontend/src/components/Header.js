@@ -33,7 +33,7 @@ function Header({value}){
             <input type="text" id="serchh" className='text-sm w-full bg-transparent border-none outline-none px-3' placeholder="Looking for something specific ?"  />
         </div>
         <div className='text-xl text-slate-500 my-auto ' onClick={()=>{setLogin(true)}}>
-            <img src="https://www.starbucks.in/assets/icon/account_thin.svg" />
+            <img src="https://www.starbucks.in/assets/icon/account_thin.svg" style={{width:"150px"}}/>
         </div>
        </div>
        {login && <Login skip={Slogin}/>}

@@ -5,18 +5,34 @@ const Merchandise = ({value}) => {
     const [userId, setUserId] = useState(undefined);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/user-auth/')
-            .then(response => response.json())
+        fetch('http://localhost:8000/api/user-auth/', {
+            method: 'GET',
+            credentials: 'include', // Include credentials (e.g., cookies) if needed
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
+                console.log("Fetched data:", data);
+        
                 if (data.user) {
-                    setUserId(data.user.id)
-                    setData(data.user)
-                    // console.log("Cart data:", data.user.cart);
+                    console.log("User ID:", data.user.id);
+        
+                    setUserId(data.user.id);
+                    setData(data.user);
+                    console.log("Cart data:", data.user.cart);
                 } else {
                     console.log("Authentication failed:", data.message);
                 }
             })
-            .catch(error => console.error("Error:", error));
+            .catch(error => console.error("Fetch error:", error));
+        
 
         // Step 2: Fetch data from API
         fetch("http://127.0.0.1:8000/api/merchandise/")
