@@ -22,6 +22,9 @@ from django.views.decorators.csrf import csrf_exempt
 # import models
 from .models import Drink, Food, Merchandise, CoffeeAtHome, ReadyToEat, CoffeeCart
 
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 # sample api
@@ -128,6 +131,7 @@ def add_to_cart(request):
                 user=user,
                 cart_details=data["cart_details"],
             )
+            print(cart)
 
             return JsonResponse(
                 {"message": "Item added to cart successfully!"}, status=201
@@ -148,15 +152,15 @@ def remove_item_from_cart(request):
             user = 1  # for now
             cart_item = CoffeeCart.objects.all()
             dataa = json.loads(request.body)
-            if(dataa['res']):
+            if dataa["res"]:
                 for i in cart_item:
-                    data=i.cart_details
-                    if(data['title'] == dataa['Itemtitle'] ):
+                    data = i.cart_details
+                    if data["title"] == dataa["Itemtitle"]:
                         i.delete()
             else:
                 for i in cart_item:
-                    data=i.cart_details
-                    if(data['title'] == dataa['Itemtitle'] ):
+                    data = i.cart_details
+                    if data["title"] == dataa["Itemtitle"]:
                         i.delete()
                         break
             return JsonResponse(
@@ -171,12 +175,31 @@ def remove_item_from_cart(request):
 
 
 @csrf_exempt
+def login_view(request):
+    if request.method == "POST":
+        body = json.loads(request.body)
+        username = body.get("username")
+        password = body.get("password")
+
+        print(username, password)
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return JsonResponse({"message": "Login successful"}, status=200)
+        else:
+            return JsonResponse({"error": "Invalid credentials"}, status=400)
+
+    return JsonResponse({"error": "Invalid request method"}, status=405)
+
+
+@csrf_exempt
 def user_authentication(request):
-    # if user.is_authenticated:
-    if True:
+    if request.user.is_authenticated:
         try:
-            id = 1
-            user = User.objects.get(id=id)
+            print(request.user)
+            user = User.objects.get(username=request.user)
+            print(user)
 
             cart = CoffeeCart.objects.filter(user=user)
             cart_data = (
@@ -210,3 +233,20 @@ def user_authentication(request):
             return JsonResponse({"error": str(e)}, status=500)
 
     return JsonResponse({"error": "Invalid request method"}, status=405)
+
+
+# @login_required
+# def user_authentication(request):
+#     if request.user.is_authenticated:
+#         user = request.user
+#         return JsonResponse(
+#             {
+#                 "username": user.username,
+#                 "email": user.email,
+#                 "first_name": user.first_name,
+#                 "last_name": user.last_name,
+#                 # Add other fields as needed
+#             },
+#             status=200,
+#         )
+#     return JsonResponse({"error": "User not authenticated"}, status=401)
