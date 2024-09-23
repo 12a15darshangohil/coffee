@@ -71,30 +71,47 @@ const Login = ({ skip }) => {
     };
 
 
-    const SignUpp = (e) => {
+    const SignUpp = async (e) => {
         e.preventDefault();
         let Susername = document.getElementById('Susername').value;
         let mobilenumber = document.getElementById('mobilenumber').value;
         let SCpass = document.getElementById('SCpassword').value;
-        if (Susername != '' & mobilenumber != "" & SCpass != "") {
-            fetch('', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ Susername: Susername, mobilenumber: mobilenumber, SCpass }),
-            })
-            alert('Create Account Successfully')
+
+        if (Susername !== '' && mobilenumber !== '' && SCpass !== '') {
+            try {
+                const response = await fetch('http://localhost:8000/api/signup/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: Susername,
+                        mobile: mobilenumber,
+                        password: SCpass,
+                    }),
+                });
+
+                if (response.ok) {
+                    alert('Account created successfully');
+                    // Optionally, navigate to login page after successful signup
+                } else {
+                    const data = await response.json();
+                    alert(data.error || 'Failed to create account');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while creating your account.');
+            }
+        } else {
+            if (Susername === '')
+                alert('Enter a valid Username');
+            if (mobilenumber === '')
+                alert('Enter a valid Mobile Number');
+            if (SCpass === '')
+                alert('Enter a valid Password');
         }
-        else {
-            if (Susername == '')
-                alert('Enter Valid Username')
-            if (mobilenumber == '')
-                alert('Enter Valid Mobilenumber')
-            if (SCpass == "")
-                alert('Enter Valid Password !')
-        }
-    }
+    };
+
 
     // Navigate to user dashboard
     const goToDashboard = () => {
