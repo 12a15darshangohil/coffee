@@ -216,7 +216,7 @@ function Cart() {
                             <div>₹ {total.toFixed(2)}</div>
                         </div>
                     </div>
-                    <div className="w-[80%] mx-auto bg-[#979797] px-4 py-5 text-center rounded-[15px] text-white item_container font-bold text-[19px] mb-14" onClick={() => { alert("Order Placed Successfully"); }}>
+                    <div className="w-[80%] mx-auto bg-[#00754A] hover:bg-[#979797] px-4 py-5 text-center rounded-[16px] text-white item_container font-semibold text-[20px] mb-14 hover:cursor-pointer" onClick={() => { alert("Order Placed Successfully"); }}>
                         Place Order
                     </div>
                 </>
