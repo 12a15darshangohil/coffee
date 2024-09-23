@@ -9,7 +9,8 @@ from .views import (
     add_to_cart,
     user_authentication,
     remove_item_from_cart,
-    login_view
+    login_view,
+    signup_view,
 )
 
 # for fetch data
@@ -39,4 +40,5 @@ urlpatterns += [
 
 urlpatterns += [
     path("login/", login_view, name="login_api"),
+    path("signup/", signup_view, name="signup"),
 ]

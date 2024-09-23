@@ -193,6 +193,37 @@ def login_view(request):
     return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+
+@csrf_exempt
+def signup_view(request):
+    if request.method == "POST":
+        try:
+            # Parse the incoming data
+            data = json.loads(request.body)
+            username = data.get("username")
+            mobile = data.get("mobile")
+            password = data.get("password")
+
+            if not username or not mobile or not password:
+                return JsonResponse({"error": "All fields are required."}, status=400)
+
+            if User.objects.filter(username=username).exists():
+                return JsonResponse({"error": "Username already taken."}, status=400)
+            user = User.objects.create_user(username=username, password=password)
+            user.save()
+            return JsonResponse({"message": "Account created successfully"}, status=201)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON data"}, status=400)
+    else:
+        return JsonResponse({"error": "Only POST method is allowed"}, status=405)
+
+
 @csrf_exempt
 def user_authentication(request):
     if request.user.is_authenticated:
