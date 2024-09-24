@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { json } from "react-router-dom";
+import Swal from 'sweetalert2';
+import '../App.css'
 
 function Cart() {
     const [quantities, setQuantities] = useState({}); // Track quantities for each item
@@ -103,8 +105,30 @@ function Cart() {
 
     // remove from cart
     const removeItemFromCart = async (title, ress) => {
+        
         if (ress) {
-            let askRemove = window.confirm("Do You want to remove item from cart?")
+              let askRemove=false
+               await Swal.fire({
+                title: 'Remove Item?',
+                text: `Are you sure you want to remove ${title} from your cart?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#FF4757', // Custom confirm button color
+                cancelButtonColor: '#1E90FF',   // Custom cancel button color
+                confirmButtonText: 'Yes, remove it',
+                cancelButtonText: 'No, keep it',
+                customClass: {
+                  title: 'swal-title',
+                  popup: 'swal-popup',
+                  content: 'swal-content',
+                  confirmButton: 'swal-confirm',
+                  cancelButton: 'swal-cancel',
+                },
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    askRemove=true
+                }
+              });
             if (askRemove) {
                 await fetch(`http://localhost:8000/api/cart/remove/`, {
                     method: 'POST',

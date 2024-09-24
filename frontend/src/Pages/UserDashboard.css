@@ -2,6 +2,7 @@
     padding: 40px;
     background-color: #F4F1EA; /* Light coffee */
     flex-grow: 1;
+    height: 100%;
 }
 
 h2 {

@@ -32,8 +32,8 @@ function Routing() {
                         <Route path="Coffeculture" element={<Coffeculture />}></Route>
                         <Route path="Serch" element={<Serch value={{ 'setnotify': setnotify }} />}></Route>
                         <Route path="Cart" element={<Cart />}></Route>
-                        <Route path="userdashboard" element={<UserDashboard />}></Route>
                     </Route>
+                    <Route path="userdashboard" element={<UserDashboard />}></Route>
                 </Routes>
             </BrowserRouter>
         </>
