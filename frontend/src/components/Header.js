@@ -69,7 +69,6 @@ function Header({ value }) {
           <img src="	https://www.starbucks.in/assets/icon/search.svg"></img>
           <input type="text" id="serchh" className='text-sm w-full bg-transparent border-none outline-none px-3' placeholder="Looking for something specific ?" />
         </div>
-<<<<<<< HEAD
 
         {!auth &&
           <>
@@ -85,19 +84,6 @@ function Header({ value }) {
             </div>
           </>
         }
-=======
-        <div className='text-xl text-slate-500 my-auto ' onClick={()=>{if(Boolean(window.localStorage.getItem('loggedIn')) != true)
-          {setLogin(true)}}}>
-            {
-              Boolean(window.localStorage.getItem('loggedIn')) &&
-              <Link to="/userdashboard"> <img src="https://www.starbucks.in/assets/icon/account_thin.svg"/></Link>
-            }
-            {
-              Boolean(window.localStorage.getItem('loggedIn')) != true &&
-                   <img src="https://www.starbucks.in/assets/icon/account_thin.svg"/>
-            }
-        </div>
->>>>>>> 472e4246dc6bc7527d31ce6f1595c8c1c83e9e32
       </div>
       {login && <Login skip={Slogin} />}
     </>
