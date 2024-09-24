@@ -46,7 +46,6 @@ const CoffeeAtHome = ({ value }) => {
             });
     }, []);
 
-
     const addToCart = (item) => {
         const cartItem = {
             user_id: userId,
