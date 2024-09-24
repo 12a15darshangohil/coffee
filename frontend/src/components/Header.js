@@ -1,10 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Login from '../Pages/Login';
 function Header({ value }) {
   const Location = useLocation();
   const navigatee = useNavigate();
   let [login, setLogin] = useState(false)
+
+  const [data, setData] = useState(null);
+  const [auth, setAuth] = useState(false)
+  const [userId, setUserId] = useState(undefined);
+
+  useEffect(() => {
+    // Fetch user authentication data
+    fetch('http://localhost:8000/api/user-auth/', {
+      method: 'GET',
+      credentials: 'include', // Ensure cookies/credentials are included
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Check if the user data exists (i.e., authentication was successful)
+        if (data.user) {
+          console.log("User ID:", data.user.id);
+          console.log("Cart data:", data.user.cart);
+
+          // Update authentication state and user data
+          setAuth(true); // User is authenticated
+          setUserId(data.user.id);
+          setData(data.user);
+        } else {
+          console.log("Authentication failed:", data.message);
+        }
+      })
+      .catch(error => console.error("Fetch error:", error));
+  }, []); // Empty dependency array to run the effect once on component mount
+
   const Slogin = (value) => {
     setLogin(value)
   }
@@ -28,27 +65,25 @@ function Header({ value }) {
             </span>
             Pay</Link>
         </div>
-        <div className=' text-xl text-slate-500 w-full max-w-[300px] shadow-md flex my-auto py-2 px-5 rounded-full mr-[80px] ' style={{width:"150px"}} onClick={serch} >
+        <div className=' text-xl text-slate-500 w-full max-w-[300px] shadow-md flex my-auto py-2 px-5 rounded-full mr-[80px] ' onClick={serch} >
           <img src="	https://www.starbucks.in/assets/icon/search.svg"></img>
           <input type="text" id="serchh" className='text-sm w-full bg-transparent border-none outline-none px-3' placeholder="Looking for something specific ?" />
         </div>
-<<<<<<< HEAD
-        <div className='text-xl text-slate-500 my-auto ' onClick={() => { setLogin(true) }}>
-          <img src="https://www.starbucks.in/assets/icon/account_thin.svg" />
-=======
-        <div className='text-xl text-slate-500 my-auto ' onClick={()=>{if(Boolean(window.localStorage.getItem('loggedIn')) != true)
-          {setLogin(true)}}}>
-            {
-              Boolean(window.localStorage.getItem('loggedIn')) &&
-              <Link to="/userdashboard"> <img src="https://www.starbucks.in/assets/icon/account_thin.svg"/></Link>
-            }
-            {
-              Boolean(window.localStorage.getItem('loggedIn')) != true &&
-                   <img src="https://www.starbucks.in/assets/icon/account_thin.svg"/>
-            }
-            
->>>>>>> 817e3eabfd2d978428f3c2e6ab1c13fdfabeb327
-        </div>
+
+        {!auth &&
+          <>
+            <div className='text-xl text-slate-500 my-auto ' style={{ width: "150px" }} onClick={() => { setLogin(true) }}>
+              <img src="https://www.starbucks.in/assets/icon/account_thin.svg" />
+            </div>
+          </>
+        }
+        {auth &&
+          <>
+            <div className='text-xl text-slate-500 my-auto ' style={{ width: "150px" }} onClick={() => { navigatee("/userdashboard") }}>
+              <img src="https://www.starbucks.in/assets/icon/account_thin.svg" />
+            </div>
+          </>
+        }
       </div>
       {login && <Login skip={Slogin} />}
     </>
