@@ -22,8 +22,14 @@ from django.views.decorators.csrf import csrf_exempt
 # import models
 from .models import Drink, Food, Merchandise, CoffeeAtHome, ReadyToEat, CoffeeCart
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+
+
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 # Create your views here.
@@ -193,12 +199,6 @@ def login_view(request):
     return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
-from django.contrib.auth.models import User
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import json
-
-
 @csrf_exempt
 def signup_view(request):
     if request.method == "POST":
@@ -206,22 +206,36 @@ def signup_view(request):
             # Parse the incoming data
             data = json.loads(request.body)
             username = data.get("username")
-            mobile = data.get("mobile")
+            pass1 = data.get("pass1")
             password = data.get("password")
 
-            if not username or not mobile or not password:
+            if not username or not pass1 or not password:
                 return JsonResponse({"error": "All fields are required."}, status=400)
 
             if User.objects.filter(username=username).exists():
                 return JsonResponse({"error": "Username already taken."}, status=400)
+            if pass1 != password:
+                return JsonResponse(
+                    {"error": "Both passwords are different"}, status=400
+                )
             user = User.objects.create_user(username=username, password=password)
             user.save()
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return JsonResponse({"message": "Login successful"}, status=200)
             return JsonResponse({"message": "Account created successfully"}, status=201)
 
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON data"}, status=400)
     else:
         return JsonResponse({"error": "Only POST method is allowed"}, status=405)
+
+
+@csrf_exempt
+def logout_view(request):
+    if request.user.is_authenticated:
+        logout(request)
 
 
 @csrf_exempt
