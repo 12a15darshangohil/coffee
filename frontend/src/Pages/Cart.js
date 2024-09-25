@@ -105,10 +105,10 @@ function Cart() {
 
     // remove from cart
     const removeItemFromCart = async (title, ress) => {
-        
+
         if (ress) {
-              let askRemove=false
-               await Swal.fire({
+            let askRemove = false
+            await Swal.fire({
                 title: 'Remove Item?',
                 text: `Are you sure you want to remove ${title} from your cart?`,
                 icon: 'warning',
@@ -118,17 +118,17 @@ function Cart() {
                 confirmButtonText: 'Yes, remove it',
                 cancelButtonText: 'No, keep it',
                 customClass: {
-                  title: 'swal-title',
-                  popup: 'swal-popup',
-                  content: 'swal-content',
-                  confirmButton: 'swal-confirm',
-                  cancelButton: 'swal-cancel',
+                    title: 'swal-title',
+                    popup: 'swal-popup',
+                    content: 'swal-content',
+                    confirmButton: 'swal-confirm',
+                    cancelButton: 'swal-cancel',
                 },
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                    askRemove=true
+                    askRemove = true
                 }
-              });
+            });
             if (askRemove) {
                 await fetch(`http://localhost:8000/api/cart/remove/`, {
                     method: 'POST',
@@ -184,6 +184,29 @@ function Cart() {
         }
     }
 
+    // when place order button cliked
+    function placeOrder() {
+        try {
+            const response = fetch('http://localhost:8000/api/place-order/', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const result = response.json();
+            if (response.ok) {
+                console.log('Order placed successfully:', result);
+            } else {
+                console.error('Error placing order:', result.error);
+            }
+        } catch (error) {
+            console.error('Network error:', error);
+        }
+    };
+
+
     return (
         <>
             <div className='bg-[#1e3932] py-2 sm:py-6 mb-6'>
@@ -193,9 +216,6 @@ function Cart() {
                     </div>
                 </div>
             </div>
-
-
-
 
             {Boolean(window.localStorage.getItem('loggedIn')) == true &&
                 <>
@@ -250,30 +270,33 @@ function Cart() {
                             <div>₹ {total.toFixed(2)}</div>
                         </div>
                     </div>
-                    <div className="w-[80%] mx-auto bg-[#00754A] hover:bg-[#979797] px-4 py-5 text-center rounded-[16px] text-white item_container font-semibold text-[20px] mb-14 hover:cursor-pointer" onClick={() => {if(deliveryFee>0){
-                    Swal.fire({
-                        title: "Order Placed!",
-                        text: "Thank you for your order. We will process it shortly.",
-                        icon: "success",
-                        button: "Okay",
-                        customClass: {
-                            popup: 'swal-popup',
-                            confirmButton:'swal-AccountOk', // Optional: Custom class for styling
-                          },
-                    });
-                    }
-                    else{
-                        Swal.fire({
-                            title: "Order Not Placed",
-                            text: "You cannot place an order because the item was not found.",
-                            icon: "error",
-                            button: "Okay",
-                            customClass: {
-                                popup: 'swal-popup',
-                                confirmButton:'swal-AccountOk', // Optional: Custom class for styling
-                              },
-                        });
-                    } }}>
+                    <div className="w-[80%] mx-auto bg-[#00754A] hover:bg-[#979797] px-4 py-5 text-center rounded-[16px] text-white item_container font-semibold text-[20px] mb-14 hover:cursor-pointer" onClick={() => {
+                        if (deliveryFee > 0) {
+                            Swal.fire({
+                                title: "Order Placed!",
+                                text: "Thank you for your order. We will process it shortly.",
+                                icon: "success",
+                                button: "Okay",
+                                customClass: {
+                                    popup: 'swal-popup',
+                                    confirmButton: 'swal-AccountOk', // Optional: Custom class for styling
+                                },
+                            });
+                            placeOrder()
+                        }
+                        else {
+                            Swal.fire({
+                                title: "Order Not Placed",
+                                text: "You cannot place an order because the item was not found.",
+                                icon: "error",
+                                button: "Okay",
+                                customClass: {
+                                    popup: 'swal-popup',
+                                    confirmButton: 'swal-AccountOk', // Optional: Custom class for styling
+                                },
+                            });
+                        }
+                    }}>
                         Place Order
                     </div>
                 </>
