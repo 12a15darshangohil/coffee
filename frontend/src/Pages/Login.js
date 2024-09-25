@@ -39,7 +39,7 @@ const Login = ({ skip }) => {
                 const data = await response.json();
 
                 if (response.ok) {
-                    skip(false)
+                    
                     Swal.fire({
                         title: 'Success!',
                         text: 'Login successfully',
@@ -50,6 +50,7 @@ const Login = ({ skip }) => {
                             confirmButton:'swal-AccountOk', // Optional: Custom class for styling
                           },
                     });
+                    skip(false)
                     window.localStorage.setItem('loggedIn', true);
         
                     // Fetch authenticated user data from another API
@@ -64,7 +65,17 @@ const Login = ({ skip }) => {
                         window.localStorage.setItem('loggedIn', true);
                         
                 } else {
-                    alert(data.error || 'Login failed');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'User Not Found',
+                        text: 'The user you are looking for does not exist. Please try again.',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            popup: 'swal-popup',
+                            confirmButton:'swal-AccountOk', // Optional: Custom class for styling
+                          },
+                      });
+                      document.getElementById('loginn').reset();
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -188,7 +199,7 @@ const Login = ({ skip }) => {
                                 </div>
 
                                 <div className='pt-9 pb-2' style={{ textAlign: "center", alignItems: "center" }}>
-                                    <button type="submit" className='login_b'>Login</button>
+                                    <button type="submit" className='login_b'>Create Account</button>
                                 </div>
                             </form>
                         </div>

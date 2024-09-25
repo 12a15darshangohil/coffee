@@ -122,3 +122,6 @@ body{
 .swal-AccountOk:hover{
   transform: translateY(-2px);
 }
+.dashboard_body{
+  background-color:#EFECE7 ;
+}

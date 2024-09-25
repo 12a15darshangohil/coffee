@@ -1,9 +1,15 @@
 .dashboard-content {
     padding: 40px;
-    background-color: #F4F1EA; /* Light coffee */
+    background-color: white; /* Light coffee */
     flex-grow: 1;
-}
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    height: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
 
+
+}
 h2 {
     font-size: 2.5rem;
     color: #4B3B30; /* Coffee color */
