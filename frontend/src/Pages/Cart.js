@@ -194,41 +194,44 @@ function Cart() {
                 </div>
             </div>
 
-            {cartItems.map((item) => (
-                <div key={item.cart_details.title} className='flex px-4 bg-[#F9F9F9] py-5 rounded-[15px] item_container mx-auto w-[80%] my-[15px] scaleA'>
-                    <div>
-                        <img src={item.cart_details.img} alt={item.cart_details.title} className='rounded-full' style={{ maxWidth: "99px", maxHeight: "99px" }} />
-                    </div>
-                    <div className='flex flex-col w-full'>
-                        <div className='px-4'>
-                            <div className='text-[20px] font-bold font-serif' style={{ textOverflow: "ellipsis" }}>
-                                {item.cart_details.title}
+
+
+
+            {Boolean(window.localStorage.getItem('loggedIn')) == true &&
+                <>
+                    {cartItems.map((item) => (
+                        <div key={item.cart_details.title} className='flex px-4 bg-[#F9F9F9] py-5 rounded-[15px] item_container mx-auto w-[80%] my-[15px] scaleA'>
+                            <div>
+                                <img src={item.cart_details.img} alt={item.cart_details.title} className='rounded-full' style={{ maxWidth: "99px", maxHeight: "99px" }} />
                             </div>
-                            <div className='mb-6 text-[20px] font-serif font-normal'>₹ {item.cart_details.price}</div>
-                            <div className="justify-between flex">
-                                <div className="py-1.5 bg-[#80808014] rounded-[30px] text-[18px] font-bold text-[black] font-serif inline-block shadow-sm">
-                                    <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold hover:bg-[#00754A] hover:text-white" onClick={() => removeItemFromCart(item.cart_details.title, false)}>
-                                        <i className="ri-subtract-fill"></i>
+                            <div className='flex flex-col w-full'>
+                                <div className='px-4'>
+                                    <div className='text-[20px] font-bold font-serif' style={{ textOverflow: "ellipsis" }}>
+                                        {item.cart_details.title}
                                     </div>
-                                    <div className="px-5 inline">{quantities[item.cart_details.title]}</div>
-                                    <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold hover:bg-[#00754A] hover:text-white" onClick={() => addToCart(item)}>
-                                        <i className="ri-add-fill"></i>
+                                    <div className='mb-6 text-[20px] font-serif font-normal'>₹ {item.cart_details.price}</div>
+                                    <div className="justify-between flex">
+                                        <div className="py-1.5 bg-[#80808014] rounded-[30px] text-[18px] font-bold text-[black] font-serif inline-block shadow-sm">
+                                            <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold hover:bg-[#00754A] hover:text-white" onClick={() => removeItemFromCart(item.cart_details.title, false)}>
+                                                <i className="ri-subtract-fill"></i>
+                                            </div>
+                                            <div className="px-5 inline">{quantities[item.cart_details.title]}</div>
+                                            <div className="inline px-4 py-2 bg-white rounded-[13px] font-extrabold hover:bg-[#00754A] hover:text-white" onClick={() => addToCart(item)}>
+                                                <i className="ri-add-fill"></i>
+                                            </div>
+                                        </div>
+                                        <i
+                                            className="ri-delete-bin-6-fill text-[#0000009e] hover:text-[#ff0000dd]"
+                                            style={{ fontSize: "22px" }}
+                                            onClick={() => removeItemFromCart(item.cart_details.title, true)} // Call the function on click
+                                        ></i>
                                     </div>
                                 </div>
-                                <i
-                                    className="ri-delete-bin-6-fill text-[#0000009e] hover:text-[#ff0000dd]"
-                                    style={{ fontSize: "22px" }}
-                                    onClick={() => removeItemFromCart(item.cart_details.title, true)} // Call the function on click
-                                ></i>
                             </div>
                         </div>
-                    </div>
-                </div>
-            ))}
+                    ))}
 
 
-            {deliveryFee != 0 &&
-                <>
                     <div className='flex w-[80%] flex-col px-4 bg-[#F9F9F9] py-5 rounded-[15px] item_container mx-auto my-[15px] scaleA'>
                         <div className="flex justify-between w-full px-4 font-bold text-[#000000cb] font-serif mb-3">
                             <div>Bill Details</div>
@@ -247,13 +250,36 @@ function Cart() {
                             <div>₹ {total.toFixed(2)}</div>
                         </div>
                     </div>
-                    <div className="w-[80%] mx-auto bg-[#00754A] hover:bg-[#979797] px-4 py-5 text-center rounded-[16px] text-white item_container font-semibold text-[20px] mb-14 hover:cursor-pointer" onClick={() => { alert("Order Placed Successfully"); }}>
+                    <div className="w-[80%] mx-auto bg-[#00754A] hover:bg-[#979797] px-4 py-5 text-center rounded-[16px] text-white item_container font-semibold text-[20px] mb-14 hover:cursor-pointer" onClick={() => {if(deliveryFee>0){
+                    Swal.fire({
+                        title: "Order Placed!",
+                        text: "Thank you for your order. We will process it shortly.",
+                        icon: "success",
+                        button: "Okay",
+                        customClass: {
+                            popup: 'swal-popup',
+                            confirmButton:'swal-AccountOk', // Optional: Custom class for styling
+                          },
+                    });
+                    }
+                    else{
+                        Swal.fire({
+                            title: "Order Not Placed",
+                            text: "You cannot place an order because the item was not found.",
+                            icon: "error",
+                            button: "Okay",
+                            customClass: {
+                                popup: 'swal-popup',
+                                confirmButton:'swal-AccountOk', // Optional: Custom class for styling
+                              },
+                        });
+                    } }}>
                         Place Order
                     </div>
                 </>
             }
 
-            {deliveryFee == 0 &&
+            {deliveryFee == 0 & Boolean(window.localStorage.getItem('loggedIn')) != true &&
                 <>
                     <div className="text-center mt-4 font-semibold text-[20px] w-full text-[#000000b7]">
                         <img src='https://www.starbucks.in/assets/images/noSearchFound.svg' className="mx-auto" />

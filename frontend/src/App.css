@@ -109,3 +109,16 @@ body{
   background-color: #3BB9FF; /* Darker shade on hover */
   transform: translateY(-2px); /* Lift effect */
 }
+
+.swal-AccountOk{
+  background-color: rgba(0, 0, 0, 0.785);
+  color:white;
+  border-radius: 15px;
+  border: none;              /* No border */
+  cursor: pointer; 
+  font-weight: bold;  
+  padding: 10px 40px;  
+}
+.swal-AccountOk:hover{
+  transform: translateY(-2px);
+}

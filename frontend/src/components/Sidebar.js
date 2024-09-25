@@ -1,8 +1,9 @@
 import React from 'react';
 import { FaHome, FaCompass, FaTag, FaHeart, FaCog } from 'react-icons/fa'; // Icons
-import { Outlet } from 'react-router-dom';
+import { Outlet,Link,useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+    let navigatee = useNavigate()
     return (
         <div className="flex ">
             <div className="w-64 bg-[#3E2723] text-white h-screen rounded-r-[15px] p-5 fixed">
@@ -13,22 +14,17 @@ const Sidebar = () => {
                     <li className="flex items-center p-3 hover:bg-[#795548] cursor-pointer rounded-md transition-all">
                         <FaHome className="mr-4" /> Dashboard
                     </li>
-                    <li className="flex items-center p-3 hover:bg-[#795548] cursor-pointer rounded-md transition-all">
-                        <FaCompass className="mr-4" /> Explore
-                    </li>
-                    <li className="flex items-center p-3 hover:bg-[#795548] cursor-pointer rounded-md transition-all">
-                        <FaTag className="mr-4" /> Offers
-                    </li>
-                    <li className="flex items-center p-3 hover:bg-[#795548] cursor-pointer rounded-md transition-all">
-                        <FaHeart className="mr-4" /> Favorites
-                    </li>
-                    <li className="flex items-center p-3 hover:bg-[#795548] cursor-pointer rounded-md transition-all">
-                        <FaCog className="mr-4" /> Settings
+                    <Link to='/'><li className="flex items-center p-3 hover:bg-[#795548] cursor-pointer rounded-md transition-all">
+                        <FaCompass className="mr-4" /> Home
+                    </li></Link>
+                    <li className="flex items-center p-3 hover:bg-[#795548] cursor-pointer rounded-md transition-all" onClick={()=>{window.localStorage.clear()
+                        navigatee('/')
+                    }}>
+                        <FaTag className="mr-4" /> Logout
                     </li>
                 </ul>
             </div>
                 <Outlet />
-
         </div>
     );
 };

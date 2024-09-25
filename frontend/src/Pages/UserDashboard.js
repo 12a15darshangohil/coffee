@@ -66,68 +66,71 @@ const UserDashboard = () => {
 </div>
         </div>
 
-        <div id="BILL" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-[#FAFAFA] rounded-[15px]  shadow-lg w-[40%] p-6 px-14 text-center">
-        <h2 className="text-2xl font-semibold mb-4">Bill Details</h2>
+ 
+  <div id="BILL" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 hidden">
+    <div className="bg-white rounded-[15px] shadow-lg w-[90%] max-w-md p-8 text-center">
+      <h2 className="text-3xl font-bold text-gray-800  my-4">Bill Details</h2>
 
-        {/* Date of Order */}
-        <div className="mb-4">
-          <p className="text-lg font-medium text-gray-700">Date of Order</p>
-          <p className="text-gray-600">2024-12-01</p>
+      {/* Order Date */}
+      <div className="flex justify-between mb-4">
+        <p className="text-lg font-medium text-gray-700">Order Date</p>
+        <p className="text-gray-600">December 1, 2024</p>
+      </div>
+
+      {/* Divider */}
+      <div className="h-px bg-gray-300 my-4" />
+
+      {/* Coffee Items */}
+      <div className="mb-4">
+        <div className="text-lg font-bold text-[#808080c5] flex py-2 ">Coffee Items</div>
+        <div className="flex justify-between my-2">
+          <span>Cappuccino (x2)</span>
+          <span className="font-semibold font-serif">₹42</span>
         </div>
-
-        {/* Horizontal Line */}
-        <hr className="my-4" />
-
-        {/* Coffee Items */}
-        <div className="mb-4">
-          <p className="text-lg font-medium text-gray-700">Coffee Items</p>
-          {/* {coffeeItems.map((item, index) => (
-            <p key={index} className="text-gray-600">
-              capachino X 2 &mdash;
-            </p>
-          ))} */}
-          <div className="flex pt-3 justify-between text-gray-600">
-            <span>Cappuccino</span>
-            <span>X</span>
-            <span>2</span>
-            <span>=</span>
-            <span>₹42</span>
+        <div className="flex justify-between my-2">
+          <span>Latte (x1)</span>
+          <span className="font-semibold font-serif">₹18</span>
         </div>
-        </div>
-
-        {/* Horizontal Line */}
-        <hr className="my-4" />
-
-        {/* Delivery Fee */}
-        <div className="mb-4">
-          <p className="text-lg font-medium text-gray-700">Delivery Fee</p>
-          <p className="text-gray-600">₹ 12</p>
-        </div>
-
-        {/* Horizontal Line */}
-        <hr className="my-4" />
-
-        {/* Grand Total */}
-        <div className="mb-4">
-          <p className="text-lg font-bold text-gray-700">Grand Total</p>
-          <p className="text-gray-800 font-semibold">₹ 54</p>
-        </div>
-
-        {/* Thank You Message */}
-        <div className="mt-6 text-center">
-          <p className="text-lg font-bold text-green-600">Thank you for your purchase!</p>
-        </div>
-
-        {/* Close Button */}
-        <div className="mt-6">
-          <button onClick={()=>{document.getElementById("BILL").style.display="none"}}
-            className="px-4 py-2 bg-gray-800 w-[80%] rounded-[15px] text-white  hover:bg-gray-700 transition">
-            Close
-          </button>
+        <div className="flex justify-between my-2">
+          <span>Espresso (x1)</span>
+          <span className="font-semibold font-serif">₹15</span>
         </div>
       </div>
+
+      {/* Divider */}
+      <div className="h-px bg-gray-300 my-4" />
+
+      {/* Delivery Fee */}
+      <div className="flex justify-between mb-4">
+        <p className="text-lg font-medium text-gray-700">Delivery Fee</p>
+        <p className="text-gray-600 font-serif">₹12</p>
+      </div>
+
+      <div className="h-[2px]  my-4 border-dashed border" />
+
+      {/* Grand Total */}
+      <div className="flex justify-between mb-4">
+        <p className="text-xl font-bold text-gray-800">Total Amount</p>
+        <p className="text-2xl font-semibold text-gray-900 font-serif">₹87</p>
+      </div>
+
+
+      {/* Close Button */}
+      <div className="mt-6">
+        <button
+          onClick={() => { document.getElementById("BILL").style.display = "none"; }}
+          className="px-4 py-3 bg-blue-600 w-full rounded-[10px] text-white hover:bg-blue-500 transition"
+          aria-label="Close Bill"
+        >
+          Close
+        </button>
+      </div>
     </div>
+  </div>
+
+
+
+
         </>
     );
 };

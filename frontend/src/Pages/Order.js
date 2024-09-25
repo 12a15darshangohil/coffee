@@ -16,7 +16,7 @@ const Order =()=>{
             <div className='bg-[#1e3932] py-2 sm:py-6'>
                 <div className=' text-white  text-lg tracking-wide w-full'>
                     <div className='px-4  sm:px-0 md:w-4/5 m-auto flex justify-between items-center gap-5'>
-                        <p className='text-sm sm:text-xl max-w-md sm:max-w-xl font-light'>Home  &gt;  Order</p>
+                        <p className='text-sm sm:text-xl max-w-md sm:max-w-xl font-light'>Home  &gt;  Menu</p>
                     </div> 
                 </div>
             </div>
