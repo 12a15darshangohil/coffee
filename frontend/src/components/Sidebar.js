@@ -1,8 +1,49 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react';
 import { FaHome, FaCompass, FaTrashAlt,FaSignOutAlt } from 'react-icons/fa'; // Icons
 import { Outlet,Link,useNavigate } from 'react-router-dom';
+=======
+import React from 'react';
+import { FaHome, FaCompass, FaTag, FaHeart, FaCog } from 'react-icons/fa'; // Icons
+import { Outlet, Link, useNavigate } from 'react-router-dom';
+>>>>>>> d5693039d13feccd88f1a911a17a3ca25d3f6a39
 
 const Sidebar = () => {
+
+    function userLogout() {
+        // Fetch authenticated user data first
+        fetch('http://localhost:8000/api/user-auth/', {
+            method: 'GET',
+            credentials: 'include', // Ensures cookies (session) are included in the request
+        })
+            .then(response => {
+                if (response.ok) {
+                    // If the user is authenticated, proceed with logout
+                    return fetch('http://localhost:8000/api/logout/', {
+                        method: 'POST', // Assuming the logout endpoint uses POST
+                        credentials: 'include', // Ensures session cookies are sent for logout
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+                } else {
+                    throw new Error('User is not authenticated');
+                }
+            })
+            .then(logoutResponse => {
+                if (logoutResponse.ok) {
+                    // Successfully logged out, handle redirection or UI changes
+                    console.log('Logout successful');
+                    window.location.href = '/login'; // Redirect to login page after logout
+                } else {
+                    throw new Error('Logout failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
     let navigatee = useNavigate()
     useEffect(()=>{
         document.body.className='dashboard_body'
@@ -27,7 +68,7 @@ const Sidebar = () => {
                     </li>
                 </ul>
             </div>
-                <Outlet />
+            <Outlet />
         </div>
     );
 };

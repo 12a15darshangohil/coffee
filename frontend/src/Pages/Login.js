@@ -103,7 +103,7 @@ const Login = ({ skip }) => {
                     },
                     body: JSON.stringify({
                         username: Susername,
-                        mobile: mobilenumber,
+                        pass1: mobilenumber,
                         password: SCpass,
                     }),
                 });
@@ -131,7 +131,7 @@ const Login = ({ skip }) => {
             if (Susername === '')
                 alert('Enter a valid Username');
             if (mobilenumber === '')
-                alert('Enter a valid Mobile Number');
+                alert('Enter a valid Password');
             if (SCpass === '')
                 alert('Enter a valid Password');
         }
