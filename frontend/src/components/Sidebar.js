@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 import React, { useEffect } from 'react';
 import { FaHome, FaCompass, FaTrashAlt,FaSignOutAlt } from 'react-icons/fa'; // Icons
 import { Outlet,Link,useNavigate } from 'react-router-dom';
-=======
-import React from 'react';
-import { FaHome, FaCompass, FaTag, FaHeart, FaCog } from 'react-icons/fa'; // Icons
-import { Outlet, Link, useNavigate } from 'react-router-dom';
->>>>>>> d5693039d13feccd88f1a911a17a3ca25d3f6a39
 
 const Sidebar = () => {
 
