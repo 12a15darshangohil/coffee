@@ -15,6 +15,7 @@ from django.views import View
 from django.utils.decorators import method_decorator
 
 import json
+from collections import Counter
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -52,7 +53,8 @@ class SampleAPIView(APIView):
             "food-item-api": f"{self.x}api/food/",
             "merchandise-item-api": f"{self.x}api/merchandise/",
             "coffee-at-home-item-api": f"{self.x}api/coffee-at-home/",
-            "ready-t-eat-item-api": f"{self.x}api/ready-to-eat/",
+            "ready-toeat-item-api": f"{self.x}api/ready-to-eat/",
+            "bestseller-item-api": f"{self.x}api/bestseller/",
         }
         return Response(data)
 
@@ -340,3 +342,31 @@ def delete_account(request):
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     return Response({"error": "Inavlid method"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET"])
+def bestseller(request):
+    orders = Order.objects.all()  # Fetch all orders
+    item_counter = Counter()
+
+    for order in orders:
+        cart_items = order.cart_items
+        for item in cart_items:
+            item_counter[
+                (item["title"], item["price"], item["img"], item["description"])
+            ] += 1  # Count each item by title
+
+    most_common_items = item_counter.most_common(10)  # Change number as needed
+
+    response_data = [
+        {
+            "title": item[0],
+            "price": item[1],
+            "img": item[2],
+            "description": item[3],
+            "count": count,
+        }
+        for item, count in most_common_items
+    ]
+
+    return Response(response_data)

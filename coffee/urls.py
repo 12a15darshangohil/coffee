@@ -15,6 +15,7 @@ from .views import (
     place_order,
     get_user_orders,
     delete_account,
+    bestseller,
 )
 
 # for fetch data
@@ -28,6 +29,7 @@ urlpatterns = [
         name="coffee-at-home",
     ),
     path("ready-to-eat/", ReadytoEatListCreateAPIView.as_view(), name="ready-to-eat"),
+    path("bestseller/", bestseller, name="most-repeated-items"),
 ]
 
 
