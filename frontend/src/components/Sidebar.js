@@ -1,41 +1,9 @@
 import React, { useEffect } from 'react';
 import { FaHome, FaCompass, FaTrashAlt, FaSignOutAlt } from 'react-icons/fa'; // Icons
 import { Outlet, Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Sidebar = () => {
-    function userLogout() {
-        // Fetch authenticated user data first
-        fetch('http://localhost:8000/api/user-auth/', {
-            method: 'GET',
-            credentials: 'include', // Ensures cookies (session) are included in the request
-        })
-            .then(response => {
-                if (response.ok) {
-                    return fetch('http://localhost:8000/api/logout/', {
-                        method: 'POST',
-                        credentials: 'include',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        }
-                    });
-                } else {
-                    console.warn('User is not authenticated, response status:', response.status);
-                    throw new Error('User is not authenticated');
-                }
-            })
-            .then(logoutResponse => {
-                if (logoutResponse.ok) {
-                    console.log('Logout successful');
-                    window.location.href = '/';
-                } else {
-                    console.error('Logout failed, response status:', logoutResponse.status);
-                    throw new Error('Logout failed');
-                }
-            })
-            .catch(error => {
-                console.error('Error during logout:', error);
-            });
-    }
 
     let navigatee = useNavigate()
     useEffect(() => {
@@ -45,28 +13,53 @@ const Sidebar = () => {
 
     const navigate = useNavigate(); // useNavigate hook for redirection
 
-    const deleteAccount = () => {
-        fetch('http://localhost:8000/api/delete-account/', {
-            method: 'POST',
-            credentials: 'include', // Include session cookies for authentication
-            headers: {
-                'Content-Type': 'application/json',
-            },
+    const deleteAccount = async () => {
+         Swal.fire({
+            title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover your account!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#FF4757', // Custom confirm button color
+                cancelButtonColor: '#1E90FF',   // Custom cancel button color
+                confirmButtonText: 'Yes, remove it',
+                cancelButtonText: 'No, keep it',
+                customClass: {
+                    title: 'swal-title',
+                    popup: 'swal-popup',
+                    content: 'swal-content',
+                    confirmButton: 'swal-confirm',
+                    cancelButton: 'swal-cancel',
+                },
         })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Account deleted successfully');
-                    // Optionally redirect the user after deletion
-                    navigate('/'); // Redirect after deletion
-                } else {
-                    return response.json().then(err => {
-                        throw new Error(err.error);
-                    });
+        .then(async (willDelete) => {
+            if (willDelete.isConfirmed) {
+                await  fetch('http://localhost:8000/api/delete-account/', {
+                    method: 'POST',
+                    credentials: 'include', // Include session cookies for authentication
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                await Swal.fire( {
+                    title:"Your account has been deleted!",
+                    icon: "success",
+                    customClass: {
+                        popup: 'swal-popup',
+                        confirmButton: 'swal-AccountOk', // Optional: Custom class for styling
+                    },
+                });
+                navigate('/');
+                window.localStorage.clear()
+            } else {
+                Swal.fire({title:"Your account is safe!",
+                    customClass: {
+                        popup: 'swal-popup',
+                        confirmButton: 'swal-AccountOk', // Optional: Custom class for styling
+                    },
                 }
-            })
-            .catch(error => {
-                console.error('Error deleting account:', error);
-            });
+                );
+            }
+        });
     };
 
     return (
@@ -80,7 +73,6 @@ const Sidebar = () => {
                         <FaHome className="mr-4" /> Home Page
                     </li>
                     <li className="flex items-center p-3 hover:bg-[#23262C] hover:text-[#FEDB69] cursor-pointer rounded-[20px] transition-all bg-white text-[black] shadow-md" onClick={() => {
-                        navigatee('/')
                         deleteAccount()
                     }}>
                         <FaTrashAlt className="mr-4" /> Delete Account
@@ -90,7 +82,7 @@ const Sidebar = () => {
                         navigatee('/')
                     }}>
                         <FaSignOutAlt className="mr-4" />
-                        <button type='button' onClick={userLogout}>
+                        <button type='button'>
                             Logout
                         </button>
                     </li>

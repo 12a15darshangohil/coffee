@@ -198,6 +198,7 @@ function Cart() {
             const result = response.json();
             if (response.ok) {
                 console.log('Order placed successfully:', result);
+               
             } else {
                 console.error('Error placing order:', result.error);
             }
@@ -281,8 +282,12 @@ function Cart() {
                                     popup: 'swal-popup',
                                     confirmButton: 'swal-AccountOk', // Optional: Custom class for styling
                                 },
-                            });
-                            placeOrder()
+                            }).then(result =>{
+                                placeOrder()
+                                if(result.isConfirmed){
+                                    window.location.reload()
+                                }
+                            })
                         }
                         else {
                             Swal.fire({
