@@ -12,6 +12,7 @@ import Serch from "./Pages/Serch";
 import Cart from "./Pages/Cart";
 import { useState } from "react";
 import UserDashboard from "./Pages/UserDashboard";
+import NoPage from "./Pages/NoPage";
 
 function Routing() {
     let [notify, setnotify] = useState(false)
@@ -34,6 +35,8 @@ function Routing() {
                         <Route path="Cart" element={<Cart />}></Route>
                     </Route>
                     <Route path="userdashboard" element={<UserDashboard />}></Route>
+                    <Route path="*" element={<NoPage />}></Route>
+                    <Route path="/404" element={<NoPage />} />
                 </Routes>
             </BrowserRouter>
         </>

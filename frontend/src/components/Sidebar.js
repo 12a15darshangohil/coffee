@@ -4,31 +4,20 @@ import { Outlet, Link, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
     function userLogout() {
-        // Fetch authenticated user data first
-        fetch('http://localhost:8000/api/user-auth/', {
-            method: 'GET',
-            credentials: 'include', // Ensures cookies (session) are included in the request
+        fetch('http://localhost:8000/api/logout/', {
+            method: 'POST',
+            credentials: 'include', // Include session cookies for authentication
+            headers: {
+                'Content-Type': 'application/json',
+            }
         })
             .then(response => {
                 if (response.ok) {
-                    return fetch('http://localhost:8000/api/logout/', {
-                        method: 'POST',
-                        credentials: 'include',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        }
-                    });
-                } else {
-                    console.warn('User is not authenticated, response status:', response.status);
-                    throw new Error('User is not authenticated');
-                }
-            })
-            .then(logoutResponse => {
-                if (logoutResponse.ok) {
+                    localStorage.clear();
                     console.log('Logout successful');
-                    window.location.href = '/';
+                    window.location.href = '/'; // Redirect to the homepage after logout
                 } else {
-                    console.error('Logout failed, response status:', logoutResponse.status);
+                    console.error('Logout failed, response status:', response.status);
                     throw new Error('Logout failed');
                 }
             })
@@ -88,11 +77,9 @@ const Sidebar = () => {
                     <li className="flex items-center p-3 hover:bg-[#23262C] hover:text-[#FEDB69] cursor-pointer rounded-[20px] transition-all bg-white text-[black] shadow-md" onClick={() => {
                         window.localStorage.clear()
                         navigatee('/')
+                        userLogout()
                     }}>
-                        <FaSignOutAlt className="mr-4" />
-                        <button type='button' onClick={userLogout}>
-                            Logout
-                        </button>
+                        <FaSignOutAlt className="mr-4" /> Logout
                     </li>
                 </ul>
             </div>

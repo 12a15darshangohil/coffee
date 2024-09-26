@@ -229,10 +229,6 @@ def signup_view(request):
                 )
             user = User.objects.create_user(username=username, password=password)
             user.save()
-            user_1 = authenticate(request, username=username, password=password)
-            if user_1 is not None:
-                login(request, user_1)
-                return JsonResponse({"message": "Login successful"}, status=200)
             return JsonResponse({"message": "Account created successfully"}, status=201)
 
         except json.JSONDecodeError:
@@ -243,10 +239,10 @@ def signup_view(request):
 
 @csrf_exempt
 def logout_view(request):
-    if request.user.is_authenticated and request.method == "POST":
+    if request.user.is_authenticated:
         logout(request)
-        return JsonResponse({"message": "Logout Done"}, status=200)
-    return JsonResponse({"error": "Invalid request method"}, status=405)
+        response = JsonResponse({"message": "Logout Done"}, status=200)
+    return JsonResponse({"error": "User is not authenticated"}, status=405)
 
 
 @csrf_exempt
@@ -337,6 +333,7 @@ def delete_account(request):
         try:
             user = request.user
             user.delete()
+            logout(request)
             return Response(
                 {"message": "Account deleted successfully"}, status=status.HTTP_200_OK
             )
