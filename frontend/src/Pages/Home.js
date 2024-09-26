@@ -18,7 +18,7 @@ function Home(){
           <h1 className='text-[#1e3932] text-2xl font-bold mb-6'>Handcrafted Curations</h1>
           <div className='flex items-center text-center flex-wrap justify-around'>
                   <a className="flex justify-center items-center flex-col  " >
-                    <Link to=""><img src={"https://www.starbucks.in/assets/icon/Bestseller.webp"} className="w-32 h-32 drop-shadow-xl sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
+                    <Link to="Order"><img src={"https://www.starbucks.in/assets/icon/Bestseller.webp"} className="w-32 h-32 drop-shadow-xl sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
                     <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Bestseller</p>
                   </a>
 

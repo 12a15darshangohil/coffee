@@ -238,7 +238,7 @@ if( Boolean(window.localStorage.getItem('loggedIn'))){
                   {
                    groupItems(element.cart_items).map(item => (
                     <div className="flex justify-between my-2" key={item.id}>
-                      <span className='font-serif'>{item.title} (x{item.quantity})</span>
+                      <span className='font-serif'>{item.title} (x {item.quantity})</span>
                       <span className="font-[500] font-serif">₹ {item.price*item.quantity}</span>
                     </div>
                   ))
