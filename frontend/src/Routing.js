@@ -27,7 +27,6 @@ function Routing() {
                         <Route path="Order" element={<Order />}>
                             <Route index element={<Bestseller value={{ 'setnotify': setnotify }} />}></Route>
                             <Route path="drinks" element={<Drinks value={{ 'setnotify': setnotify }} />}></Route>
-                            <Route path="bestseller" element={<Bestseller value={{ 'setnotify': setnotify }} />}></Route>
                             <Route path="Food" element={<Food value={{ 'setnotify': setnotify }} />}></Route>
                             <Route path="CoffeeAtHome" element={<CoffeeAtHome value={{ 'setnotify': setnotify }} />}></Route>
                             <Route path="Merchandise" element={<Merchandise value={{ 'setnotify': setnotify }} />}></Route>

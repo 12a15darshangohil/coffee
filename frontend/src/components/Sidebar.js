@@ -79,7 +79,6 @@ const Sidebar = () => {
                     <li className="flex items-center p-3 hover:bg-[#23262C] hover:text-[#FEDB69] cursor-pointer rounded-[20px] transition-all bg-white text-[black] shadow-md" onClick={() => {
                         window.localStorage.clear()
                         navigatee('/')
-                        userLogout()
                     }}>
                         <FaSignOutAlt className="mr-4" />
                         <button type='button'>

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 const UserDashboard = () => {
+  let navigate = useNavigate()
   let [trandingItems, setItem] = useState([1, 2, 3])
   let [historydata, setDataH] = useState([])
   let [billDetails, setBillDetails] = useState(false)
@@ -22,7 +23,7 @@ const UserDashboard = () => {
         console.log(data.orders)
       })
   }, [])
-
+if( Boolean(window.localStorage.getItem('loggedIn'))){
   return (
     <>
 
@@ -91,9 +92,12 @@ const UserDashboard = () => {
                 historydata.map(items => {
                   return (
                     <>
-                      <div className="border-b border-gray-300 rounded-[20px] hover:bg-gray-200 transition duration-200 cursor-pointer p-4 grid grid-cols-5 gap-4" onClick={() => { document.getElementById("BILL").style.display = "flex"; }}>
+                      <div className="border-b border-gray-300 rounded-[20px] hover:bg-gray-200 transition duration-200 cursor-pointer p-4 grid grid-cols-5 gap-4" onClick={() => {
+                        setBillDetails(Array(items))
+                        console.log(Array(items))
+                        if(billDetails) {document.getElementById("BILL").style.display = "flex";} }}>
                         <div>00{items.id}</div>
-                        <div>{items.order_time}</div>
+                        <div>{items.order_time.split('T')[0]}</div>
                         <div>Cappuccino</div>
                         <div>Small, with extra foam</div>
                         <div>₹ {items.total_price}</div>
@@ -108,7 +112,7 @@ const UserDashboard = () => {
         </div>
       </div>
 
-      {billDetails  && billDetails.map(items => {
+      {billDetails  && billDetails.map(element  => {
         return (
           <>
             <div id="BILL" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 hidden ">
@@ -119,7 +123,7 @@ const UserDashboard = () => {
                 {/* Order Date */}
                 <div className="flex justify-between mb-4">
                   <p className="text-lg font-medium text-gray-700">Order Date</p>
-                  <p className="text-gray-600">December 1, 2024</p>
+                  <p className="text-gray-600">{element.order_time.split('T')[0]}</p>
                 </div>
 
                 {/* Divider */}
@@ -128,18 +132,18 @@ const UserDashboard = () => {
                 {/* Coffee Items */}
                 <div className="mb-4">
                   <div className="text-lg font-bold text-[#808080c5] flex py-2 ">Coffee Items</div>
-                  <div className="flex justify-between my-2">
-                    <span>Cappuccino (x2)</span>
-                    <span className="font-semibold font-serif">₹42</span>
+                  {
+                  element.cart_items.map(items =>{
+                    return(
+                      <>
+                      <div className="flex justify-between my-2">
+                    <span>{items.title} (x2)</span>
+                    <span className="font-semibold font-serif">₹ {items.price}</span>
                   </div>
-                  <div className="flex justify-between my-2">
-                    <span>Latte (x1)</span>
-                    <span className="font-semibold font-serif">₹18</span>
-                  </div>
-                  <div className="flex justify-between my-2">
-                    <span>Espresso (x1)</span>
-                    <span className="font-semibold font-serif">₹15</span>
-                  </div>
+                      </>
+                    )
+                  })}
+                  
                 </div>
 
                 {/* Divider */}
@@ -148,7 +152,7 @@ const UserDashboard = () => {
                 {/* Delivery Fee */}
                 <div className="flex justify-between mb-4">
                   <p className="text-lg font-medium text-gray-700">Delivery Fee</p>
-                  <p className="text-gray-600 font-serif">₹12</p>
+                  <p className="text-gray-600 font-serif">₹ 100</p>
                 </div>
 
                 <div className="h-[2px]  my-4 border-dashed border" />
@@ -156,7 +160,7 @@ const UserDashboard = () => {
                 {/* Grand Total */}
                 <div className="flex justify-between mb-4">
                   <p className="text-xl font-bold text-gray-800">Total Amount</p>
-                  <p className="text-2xl font-semibold text-gray-900 font-serif">₹87</p>
+                  <p className="text-2xl font-semibold text-gray-900 font-serif">₹{element.total_price}</p>
                 </div>
 
 
@@ -178,7 +182,16 @@ const UserDashboard = () => {
 
 
     </>
-  );
+  );}
+  else{
+      return(
+        <>
+        {
+          navigate('404')
+        }
+        </>
+      )
+  }
 };
 
 export default UserDashboard;

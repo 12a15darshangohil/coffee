@@ -121,7 +121,7 @@ function Home(){
             <div className='h-full bg-black bg-opacity-40 hover:bg-opacity-70 w-full absolute top-0 transition-all p-7 flex flex-col justify-between'>
               <p className='bg-green-50 rounded-[5px] w-24 text-[12px] p-1 font-bold text-green-600 text-center'>Coffee Culture</p>
               <div className='text-white'>
-                <h2 className='text-3xl font-bold py-5'>Art & Science Of Coffee Brewing</h2>
+                <h2 className='text-3xl font-bold py-5 text-white'>Art & Science Of Coffee Brewing</h2>
                 <p>Master the perfect brew with Starbucks! Learn the art and science of coffee brewing.</p>
                 <Link to="/Coffeculture"><button className='bg-white text-black w-full max-w-[200px] font-semibold text-sm py-2 rounded-full mt-8'>Learn More</button></Link>
               </div>
