@@ -20,7 +20,15 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 # import models
-from .models import Drink, Food, Merchandise, CoffeeAtHome, ReadyToEat, CoffeeCart
+from .models import (
+    Drink,
+    Food,
+    Merchandise,
+    CoffeeAtHome,
+    ReadyToEat,
+    CoffeeCart,
+    Order,
+)
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -30,6 +38,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from rest_framework.decorators import api_view
 
 
 # Create your views here.
@@ -220,9 +229,9 @@ def signup_view(request):
                 )
             user = User.objects.create_user(username=username, password=password)
             user.save()
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
+            user_1 = authenticate(request, username=username, password=password)
+            if user_1 is not None:
+                login(request, user_1)
                 return JsonResponse({"message": "Login successful"}, status=200)
             return JsonResponse({"message": "Account created successfully"}, status=201)
 
@@ -234,8 +243,10 @@ def signup_view(request):
 
 @csrf_exempt
 def logout_view(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.method == "POST":
         logout(request)
+        return JsonResponse({"message": "Logout Done"}, status=200)
+    return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
 @csrf_exempt
@@ -280,18 +291,55 @@ def user_authentication(request):
     return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
-# @login_required
-# def user_authentication(request):
-#     if request.user.is_authenticated:
-#         user = request.user
-#         return JsonResponse(
-#             {
-#                 "username": user.username,
-#                 "email": user.email,
-#                 "first_name": user.first_name,
-#                 "last_name": user.last_name,
-#                 # Add other fields as needed
-#             },
-#             status=200,
-#         )
-#     return JsonResponse({"error": "User not authenticated"}, status=401)
+@csrf_exempt
+def place_order(request):
+    if request.method == "POST":
+        user = request.user
+        cart = CoffeeCart.objects.filter(user=user)
+        print(cart)
+        cart_items = [(item.cart_details) for item in cart]
+        total_price = sum(float(item["price"]) for item in cart_items)
+
+        # delivery charge
+        total_price += 100
+
+        order = Order.objects.create(
+            user=user, cart_items=cart_items, total_price=total_price
+        )
+
+        for item in cart:
+            item.delete()
+
+        return JsonResponse(
+            {"message": "Order placed successfully", "order_id": order.id}, status=201
+        )
+
+    return JsonResponse({"error": "Invalid request method"}, status=405)
+
+
+@api_view(["GET"])
+def get_user_orders(request):
+    if request.user.is_authenticated:
+        orders = Order.objects.filter(user=request.user).values(
+            "id", "cart_items", "total_price", "order_time"
+        )
+        orders_list = list(orders)
+
+        return JsonResponse(
+            {"orders": orders_list, "user": request.user.id}, status=200
+        )
+    return JsonResponse({"message": "not authenticated"}, status=400)
+
+
+@csrf_exempt
+def delete_account(request):
+    if request.method == "POST":
+        try:
+            user = request.user
+            user.delete()
+            return Response(
+                {"message": "Account deleted successfully"}, status=status.HTTP_200_OK
+            )
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({"error": "Inavlid method"}, status=status.HTTP_400_BAD_REQUEST)

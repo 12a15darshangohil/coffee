@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Login.css';
 import Swal from 'sweetalert2';
 import { useNavigate, useHistory } from 'react-router-dom';
+import { FaWineGlass } from 'react-icons/fa';
 
 
 const Login = ({ skip }) => {
@@ -39,7 +40,7 @@ const Login = ({ skip }) => {
                 const data = await response.json();
 
                 if (response.ok) {
-                    
+
                     Swal.fire({
                         title: 'Success!',
                         text: 'Login successfully',
@@ -47,23 +48,23 @@ const Login = ({ skip }) => {
                         confirmButtonText: 'OK',
                         customClass: {
                             popup: 'swal-popup',
-                            confirmButton:'swal-AccountOk', // Optional: Custom class for styling
-                          },
+                            confirmButton: 'swal-AccountOk', // Optional: Custom class for styling
+                        },
                     });
                     skip(false)
                     window.localStorage.setItem('loggedIn', true);
-        
+
                     // Fetch authenticated user data from another API
                     const userResponse = await fetch('http://localhost:8000/api/user-auth/', {
                         method: 'GET',
                         credentials: 'include',
                     });
-                        const userData = await userResponse.json();
-                        console.log("userdata:", userData);
-                        setUserData(userData); // Store user data in state
-                        setAuthDone(true); // Set authentication done
-                        window.localStorage.setItem('loggedIn', true);
-                        
+                    const userData = await userResponse.json();
+                    console.log("userdata:", userData);
+                    setUserData(userData); // Store user data in state
+                    setAuthDone(true); // Set authentication done
+                    window.localStorage.setItem('loggedIn', true);
+
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -72,10 +73,10 @@ const Login = ({ skip }) => {
                         confirmButtonText: 'OK',
                         customClass: {
                             popup: 'swal-popup',
-                            confirmButton:'swal-AccountOk', // Optional: Custom class for styling
-                          },
-                      });
-                      document.getElementById('loginn').reset();
+                            confirmButton: 'swal-AccountOk', // Optional: Custom class for styling
+                        },
+                    });
+                    document.getElementById('loginn').reset();
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -115,10 +116,10 @@ const Login = ({ skip }) => {
                         icon: 'success',
                         confirmButtonText: 'OK',
                         customClass: {
-                          popup: 'swal-popup',
-                          confirmButton:'swal-AccountOk', // Optional: Custom class for styling
+                            popup: 'swal-popup',
+                            confirmButton: 'swal-AccountOk', // Optional: Custom class for styling
                         },
-                      });
+                    });
                 } else {
                     const data = await response.json();
                     alert(data.error || 'Failed to create account');
@@ -126,6 +127,8 @@ const Login = ({ skip }) => {
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while creating your account.');
+            } finally {
+                window.location.reload()
             }
         } else {
             if (Susername === '')
