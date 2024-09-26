@@ -96,40 +96,56 @@ const Login = ({ skip }) => {
         let SCpass = document.getElementById('SCpassword').value;
 
         if (Susername !== '' && mobilenumber !== '' && SCpass !== '') {
-            try {
-                const response = await fetch('http://localhost:8000/api/signup/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        username: Susername,
-                        pass1: mobilenumber,
-                        password: SCpass,
-                    }),
-                });
-
-                if (response.ok) {
-                    Swal.fire({
-                        title: 'Account Created!',
-                        text: 'Your account has been created successfully.',
-                        icon: 'success',
-                        confirmButtonText: 'OK',
-                        customClass: {
-                            popup: 'swal-popup',
-                            confirmButton: 'swal-AccountOk', // Optional: Custom class for styling
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+            if(passwordRegex.test(mobilenumber)){
+                try {
+                    const response = await fetch('http://localhost:8000/api/signup/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
                         },
+                        body: JSON.stringify({
+                            username: Susername,
+                            pass1: mobilenumber,
+                            password: SCpass,
+                        }),
                     });
-                } else {
-                    const data = await response.json();
-                    alert(data.error || 'Failed to create account');
+    
+                    if (response.ok) {
+                        Swal.fire({
+                            title: 'Account Created!',
+                            text: 'Your account has been created successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK',
+                            customClass: {
+                                popup: 'swal-popup',
+                                confirmButton: 'swal-AccountOk', // Optional: Custom class for styling
+                            },
+                        });
+                    } else {
+                        const data = await response.json();
+                        alert(data.error || 'Failed to create account');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while creating your account.');
+                } finally {
+                    window.location.reload()
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred while creating your account.');
-            } finally {
-                window.location.reload()
             }
+            else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Password',
+                    text: 'Password must be at least 8 characters long and include  at least one uppercase letter, one lowercase letter, one number, and one special character.',
+                    customClass: {
+                        popup: 'swal-popup',
+                        confirmButton: 'swal-AccountOk', // Optional: Custom class for styling
+                    },
+                  });
+                  document.getElementById('signupp').reset();
+            }
+            
         } else {
             if (Susername === '')
                 alert('Enter a valid Username');
@@ -184,7 +200,7 @@ const Login = ({ skip }) => {
                         <div className='auth-box'>
                             <div className='text-[#00754a] font-semibold text-[14px]' style={{ textAlign: "end" }} onClick={() => { skip(false) }}>SKIP</div>
                             <div className='auth-header'>SignUp</div>
-                            <form onSubmit={SignUpp}>
+                            <form onSubmit={SignUpp} id='signupp'>
                                 <div>
                                     <label className='label_login'>USERNAME</label>
                                     <br />

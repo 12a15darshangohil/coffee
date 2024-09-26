@@ -36,7 +36,7 @@ function Routing() {
                         <Route path="Serch" element={<Serch value={{ 'setnotify': setnotify }} />}></Route>
                         <Route path="Cart" element={<Cart />}></Route>
                     </Route>
-                    <Route path="userdashboard" element={<UserDashboard />}></Route>
+                    <Route path="userdashboard" element={<UserDashboard value={{ 'setnotify': setnotify }}/>}></Route>
                     <Route path="*" element={<NoPage />}></Route>
                     <Route path="/404" element={<NoPage />} />
                 </Routes>
