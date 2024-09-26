@@ -23,7 +23,7 @@ const Order =()=>{
 
             <div className="flex w-full py-4 bg-[#F2F0EB] m-auto border-b-[#DEE2E6] border-b-2 ">
                  <ul className="px-4  sm:px-0 md:w-4/5 m-auto flex items-center gap-5 text-[#0000007d] ">
-                    <li className="pr-[40px] border-r border-r-[#D5D3CE] "><Link to="/Order" className={`${categoriescss} ${ path == ""? categoriesAcss : ""}`}>Bestseller</Link></li>
+                    <li className="pr-[40px] border-r border-r-[#D5D3CE] "><Link to="bestseller" className={`${categoriescss} ${ path == "bestseller"? categoriesAcss : ""}`}>Bestseller</Link></li>
                     <li className="px-[40px] border-r border-r-[#D5D3CE] "><Link to="drinks" className={`${categoriescss} ${ path == "drinks" ? categoriesAcss : ""}`}>Drinks</Link></li>
                     <li className="px-[40px] border-r border-r-[#D5D3CE] "><Link to="Food" className={`${categoriescss} ${ path == "Food" ? categoriesAcss : ""}`}>Food</Link></li>
                     <li className="px-[40px] border-r border-r-[#D5D3CE]  "><Link to="Merchandise" className={` ${categoriescss} ${ path === "Merchandise" ? categoriesAcss : ""}`}>Merchandise</Link></li>

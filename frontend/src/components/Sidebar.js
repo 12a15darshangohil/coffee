@@ -4,7 +4,6 @@ import { Outlet, Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const Sidebar = () => {
-
     let navigatee = useNavigate()
     useEffect(() => {
         document.body.className = 'dashboard_body'
@@ -80,6 +79,7 @@ const Sidebar = () => {
                     <li className="flex items-center p-3 hover:bg-[#23262C] hover:text-[#FEDB69] cursor-pointer rounded-[20px] transition-all bg-white text-[black] shadow-md" onClick={() => {
                         window.localStorage.clear()
                         navigatee('/')
+                        userLogout()
                     }}>
                         <FaSignOutAlt className="mr-4" />
                         <button type='button'>

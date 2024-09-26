@@ -12,6 +12,9 @@ import Serch from "./Pages/Serch";
 import Cart from "./Pages/Cart";
 import { useState } from "react";
 import UserDashboard from "./Pages/UserDashboard";
+import NoPage from "./Pages/NoPage";
+import Bestseller from "./Pages/Bestseller";
+
 
 function Routing() {
     let [notify, setnotify] = useState(false)
@@ -22,8 +25,9 @@ function Routing() {
                     <Route path="/" element={<App value={{ 'notify': notify, 'setnotify': setnotify }} />}>
                         <Route index element={<Home />}></Route>
                         <Route path="Order" element={<Order />}>
-                            <Route index element={<Drinks value={{ 'setnotify': setnotify }} />}></Route>
+                            <Route index element={<Bestseller value={{ 'setnotify': setnotify }} />}></Route>
                             <Route path="drinks" element={<Drinks value={{ 'setnotify': setnotify }} />}></Route>
+                            <Route path="bestseller" element={<Bestseller value={{ 'setnotify': setnotify }} />}></Route>
                             <Route path="Food" element={<Food value={{ 'setnotify': setnotify }} />}></Route>
                             <Route path="CoffeeAtHome" element={<CoffeeAtHome value={{ 'setnotify': setnotify }} />}></Route>
                             <Route path="Merchandise" element={<Merchandise value={{ 'setnotify': setnotify }} />}></Route>
@@ -34,6 +38,8 @@ function Routing() {
                         <Route path="Cart" element={<Cart />}></Route>
                     </Route>
                     <Route path="userdashboard" element={<UserDashboard />}></Route>
+                    <Route path="*" element={<NoPage />}></Route>
+                    <Route path="/404" element={<NoPage />} />
                 </Routes>
             </BrowserRouter>
         </>
