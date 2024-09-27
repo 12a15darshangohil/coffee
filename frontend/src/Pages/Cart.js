@@ -73,6 +73,7 @@ function Cart() {
                 title: item.cart_details.title,
                 price: item.cart_details.price,
                 img: item.cart_details.img,
+                description:item.cart_details.description,
             }
         };
 
