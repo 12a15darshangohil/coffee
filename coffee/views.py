@@ -146,7 +146,7 @@ def add_to_cart(request):
 
             cart = CoffeeCart.objects.create(
                 user=user,
-                cart_details=data["cart_details"],
+                cart_details=data.get("cart_details"),
             )
             print(cart)
 
