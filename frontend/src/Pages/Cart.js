@@ -76,6 +76,7 @@ function Cart() {
                 description:item.cart_details.description,
             }
         };
+        console.log(cartItem);
 
         await fetch('http://localhost:8000/api/coffee-cart/', {
             method: 'POST',
@@ -199,7 +200,7 @@ function Cart() {
             const result = response.json();
             if (response.ok) {
                 console.log('Order placed successfully:', result);
-               
+
             } else {
                 console.error('Error placing order:', result.error);
             }
@@ -283,9 +284,9 @@ function Cart() {
                                     popup: 'swal-popup',
                                     confirmButton: 'swal-AccountOk', // Optional: Custom class for styling
                                 },
-                            }).then(result =>{
+                            }).then(result => {
                                 placeOrder()
-                                if(result.isConfirmed){
+                                if (result.isConfirmed) {
                                     window.location.reload()
                                 }
                             })

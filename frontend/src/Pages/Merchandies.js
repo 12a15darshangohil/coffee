@@ -59,6 +59,8 @@ const Merchandise = ({value}) => {
                 }
             };
 
+            console.log(cartItem);        
+
             fetch('http://localhost:8000/api/coffee-cart/', {
                 method: 'POST',
                 headers: {

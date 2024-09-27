@@ -56,6 +56,7 @@ const CoffeeAtHome = ({ value }) => {
                 description: item.text,
             }
         };
+        console.log(cartItem);        
 
         fetch('http://localhost:8000/api/coffee-cart/', {
             method: 'POST',

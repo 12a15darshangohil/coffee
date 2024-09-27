@@ -81,7 +81,7 @@ const UserDashboard = ({ value }) => {
   const [userId, setUserId] = useState(undefined);
   const addToCart = (drink) => {
     console.log(drink);
-    
+
 
     const cartItem = {
       user_id: userId,
