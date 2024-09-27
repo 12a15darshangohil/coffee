@@ -1,115 +1,170 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
-function Home(){
-    return(
-        <>
-            <div className='bg-[#1e3932] py-2 sm:py-6'>
-                <div className=' text-white  text-lg tracking-wide w-full'>
-                    <div className='px-4  sm:px-0 md:w-4/5 m-auto flex justify-between items-center gap-5'>
-                        <p className='text-sm sm:text-xl max-w-md sm:max-w-xl font-light'>A world of rewards awaits you! Sign up now.</p>
-                        {/* <Link to={"/rewards"} className='text-sm border-2 px-2 py-1 rounded-full whitespace-nowrap'>Know More</Link> */}
-                    </div>
-                </div>
-            </div>
+import { useState, useEffect } from "react";
 
-                  {/* Handcrafted Curations */}
+function Home() {
+  const [finalData, setFinalData] = useState([]);
+  const [randomData, setRandomData] = useState([]); // To store random 3 items
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        document.body.className = "serch_body";
+        let Data = [];
+
+        // Fetch drinks data
+        const drinkResponse = await fetch("http://127.0.0.1:8000/api/drink/");
+        const drinkData = await drinkResponse.json();
+        Data = [...Data, ...drinkData];
+
+        // Fetch food data
+        const foodResponse = await fetch("http://127.0.0.1:8000/api/food/");
+        const foodData = await foodResponse.json();
+        Data = [...Data, ...foodData];
+
+        // Fetch merchandise data
+        const merchandiseResponse = await fetch("http://127.0.0.1:8000/api/merchandise/");
+        const merchandiseData = await merchandiseResponse.json();
+        Data = [...Data, ...merchandiseData];
+
+        // Fetch coffee at home data
+        const coffeeAtHomeResponse = await fetch("http://127.0.0.1:8000/api/coffee-at-home/");
+        const coffeeAtHomeData = await coffeeAtHomeResponse.json();
+        Data = [...Data, ...coffeeAtHomeData];
+
+        // Fetch ready-to-eat data
+        const readyToEatResponse = await fetch("http://127.0.0.1:8000/api/ready-to-eat/");
+        const readyToEatData = await readyToEatResponse.json();
+        Data = [...Data, ...readyToEatData];
+
+        setFinalData(Data);
+        const shuffledData = Data.sort(() => 0.5 - Math.random());
+        const selectedData = shuffledData.slice(0, 3);
+        setRandomData(selectedData);
+        console.log(selectedData);
+
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+  return (
+    <>
+      <div className='bg-[#1e3932] py-2 sm:py-6'>
+        <div className=' text-white  text-lg tracking-wide w-full'>
+          <div className='px-4  sm:px-0 md:w-4/5 m-auto flex justify-between items-center gap-5'>
+            <p className='text-sm sm:text-xl max-w-md sm:max-w-xl font-light'>A world of rewards awaits you!</p>
+            {/* <Link to={"/rewards"} className='text-sm border-2 px-2 py-1 rounded-full whitespace-nowrap'>Know More</Link> */}
+          </div>
+        </div>
+      </div>
+
+      {/* Handcrafted Curations */}
       <div className='bg-white py-14 rounded-b-[25px] shadow-md'>
         <div className='px-2  sm:px-0 md:w-4/5 m-auto'>
           <h1 className='text-[#1e3932] text-2xl font-bold mb-6'>Handcrafted Curations</h1>
           <div className='flex items-center text-center flex-wrap justify-around'>
-                  <a className="flex justify-center items-center flex-col  " >
-                    <Link to="Order"><img src={"https://www.starbucks.in/assets/icon/Bestseller.webp"} className="w-32 h-32 drop-shadow-xl sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
-                    <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Bestseller</p>
-                  </a>
+            <a className="flex justify-center items-center flex-col  " >
+              <Link to="Order"><img src={"https://www.starbucks.in/assets/icon/Bestseller.webp"} className="w-32 h-32 drop-shadow-xl sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
+              <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Bestseller</p>
+            </a>
 
-                  <a className="flex justify-center items-center flex-col " >
-                    <Link to="Order/drinks"><img src={"	https://www.starbucks.in/assets/icon/Drinks.webp"} className="w-32 h-32 drop-shadow-xl  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
-                    <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Drinks</p>
-                  </a>
+            <a className="flex justify-center items-center flex-col " >
+              <Link to="Order/drinks"><img src={"	https://www.starbucks.in/assets/icon/Drinks.webp"} className="w-32 h-32 drop-shadow-xl  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
+              <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Drinks</p>
+            </a>
 
-                  <a className="flex justify-center items-center flex-col " >
-                    <Link to="/Order/Food"><img src={"https://www.starbucks.in/assets/icon/Food.webp"} className="w-32 h-32 drop-shadow-xl  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
-                    <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Food</p>
-                  </a>
+            <a className="flex justify-center items-center flex-col " >
+              <Link to="/Order/Food"><img src={"https://www.starbucks.in/assets/icon/Food.webp"} className="w-32 h-32 drop-shadow-xl  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
+              <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Food</p>
+            </a>
 
-                  <a className="flex justify-center items-center flex-col " >
-                    <Link to="/Order/Merchandise"><img src={"https://starbucksstatic.cognizantorderserv.com/Items/Small/114615_1.png"} className="w-32 h-32 drop-shadow-xl  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
-                    <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Merchandise</p>
-                  </a>
+            <a className="flex justify-center items-center flex-col " >
+              <Link to="/Order/Merchandise"><img src={"https://starbucksstatic.cognizantorderserv.com/Items/Small/114615_1.png"} className="w-32 h-32 drop-shadow-xl  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
+              <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Merchandise</p>
+            </a>
 
-                  <a className="flex justify-center items-center flex-col " >
-                    <Link to="/Order/CoffeeAtHome"><img src={"https://www.starbucks.in/assets/icon/CoffeeAtHome.webp"} className="w-32 h-32 drop-shadow-xl  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
-                    <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Coffee At Home</p>
-                  </a>
+            <a className="flex justify-center items-center flex-col " >
+              <Link to="/Order/CoffeeAtHome"><img src={"https://www.starbucks.in/assets/icon/CoffeeAtHome.webp"} className="w-32 h-32 drop-shadow-xl  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
+              <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Coffee At Home</p>
+            </a>
 
-                  <a className="flex justify-center items-center flex-col " >
-                    <Link to="/Order/ReadyToEat"><img src={"https://www.starbucks.in/assets/icon/ReadyToEat.webp"} className="w-32 h-32 drop-shadow-xl sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
-                    <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Ready To Eat</p>
-                  </a>
+            <a className="flex justify-center items-center flex-col " >
+              <Link to="/Order/ReadyToEat"><img src={"https://www.starbucks.in/assets/icon/ReadyToEat.webp"} className="w-32 h-32 drop-shadow-xl sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
+              <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Ready To Eat</p>
+            </a>
           </div>
         </div>
       </div>
 
 
-{/* Barista Recommends */}
-<div className="h-[300px] py-7 ">
+      {/* Barista Recommends */}
+      <div className="h-[300px] py-7 ">
         <div className='px-4 md:px-0  sm:px-0 md:w-4/5 m-auto relative'>
           <h1 className='text-[#1e3932] text-2xl font-bold mb-4'>Barista Recommends</h1>
           <div className='my-10'>
-            <div className='flex gap-2 md:gap-6 overflow-x-scroll w-full absolute top-16 sm:px-4 scrollbar-none'  >
-                    <div className='w-full bg-white border max-w-sm min-w-[400px] sm:min-w-[425px] py-4 px-5 box-border rounded-[8px] border-slate-400 BOX mb-4' style={{borderColor:"rgba(0, 0, 0, .175)"}}>
-                      <div className='flex gap-4'>
-                        <img src={"#"} className='w-20 bg-red-500 h-20 rounded-md object-cover' />
-                        <div>
-                          <img src={'#'} className='' />
-                          <h3 className='font-semibold'>{"OK"}</h3>
-                          <p className='text-xs text-gray-400'>OK</p>
-                        </div>
-                      </div>
-                      <div className='flex justify-between font-semibold my-2' style={{alignItems:"center"}}>
-                        <p>₹ <span>{"ok"}</span></p>
-                        <button className='text-white bg-[#00754A] hover:bg-[#1e3932] px-6 py-2 rounded-full text-[12px] ADD_item_Btn'>Add Item</button>
-                      </div>
+
+            <div>
+              <div className='flex gap-2 md:gap-6 overflow-x-scroll w-full absolute top-16 sm:px-4 scrollbar-none'  >
+                <div className='w-full bg-white border max-w-sm min-w-[400px] sm:min-w-[425px] py-4 px-5 box-border rounded-[8px] border-slate-400 BOX mb-4' style={{ borderColor: "rgba(0, 0, 0, .175)" }}>
+                  <div className='flex gap-4'>
+                    <img src={"#"} className='w-20 bg-red-500 h-20 rounded-md object-cover' />
+                    <div>
+                      <img src={'#'} className='' />
+                      <h3 className='font-semibold'>{"OK"}</h3>
+                      <p className='text-xs text-gray-400'>OK</p>
                     </div>
+                  </div>
+                  <div className='flex justify-between font-semibold my-2' style={{ alignItems: "center" }}>
+                    <p>₹ <span>{"ok"}</span></p>
+                    <button className='text-white bg-[#00754A] hover:bg-[#1e3932] px-6 py-2 rounded-full text-[12px] ADD_item_Btn'>Add Item</button>
+                  </div>
+                </div>
 
 
-                    <div className='w-full bg-white border max-w-sm min-w-[400px] sm:min-w-[425px] py-4 px-5 box-border rounded-[8px] border-slate-400 BOX mb-4' style={{borderColor:"rgba(0, 0, 0, .175)"}}>
-                      <div className='flex gap-4'>
-                        <img src={"#"} className='w-20 bg-red-500 h-20 rounded-md object-cover' />
-                        <div>
-                          <img src={'#'} className='' />
-                          <h3 className='font-semibold'>{"OK"}</h3>
-                          <p className='text-xs text-gray-400'>OK</p>
-                        </div>
-                      </div>
-                      <div className='flex justify-between font-semibold my-2' style={{alignItems:"center"}}>
-                        <p>₹ <span>{"ok"}</span></p>
-                        <button className='text-white bg-[#00754A] hover:bg-[#1e3932] px-6 py-2 rounded-full text-[12px] ADD_item_Btn'>Add Item</button>
-                      </div>
+                <div className='w-full bg-white border max-w-sm min-w-[400px] sm:min-w-[425px] py-4 px-5 box-border rounded-[8px] border-slate-400 BOX mb-4' style={{ borderColor: "rgba(0, 0, 0, .175)" }}>
+                  <div className='flex gap-4'>
+                    <img src={"#"} className='w-20 bg-red-500 h-20 rounded-md object-cover' />
+                    <div>
+                      <img src={'#'} className='' />
+                      <h3 className='font-semibold'>{"OK"}</h3>
+                      <p className='text-xs text-gray-400'>OK</p>
                     </div>
+                  </div>
+                  <div className='flex justify-between font-semibold my-2' style={{ alignItems: "center" }}>
+                    <p>₹ <span>{"ok"}</span></p>
+                    <button className='text-white bg-[#00754A] hover:bg-[#1e3932] px-6 py-2 rounded-full text-[12px] ADD_item_Btn'>Add Item</button>
+                  </div>
+                </div>
 
 
-                    <div className='w-full bg-white border max-w-sm min-w-[400px] sm:min-w-[425px] py-4 px-5 box-border rounded-[8px] border-slate-400 BOX mb-4' style={{borderColor:"rgba(0, 0, 0, .175)"}}>
-                      <div className='flex gap-4'>
-                        <img src={"#"} className='w-20 bg-red-500 h-20 rounded-md object-cover' />
-                        <div>
-                          <img src={'#'} className='' />
-                          <h3 className='font-semibold'>{"OK"}</h3>
-                          <p className='text-xs text-gray-400'>OK</p>
-                        </div>
-                      </div>
-                      <div className='flex justify-between font-semibold my-2' style={{alignItems:"center"}}>
-                        <p>₹ <span>{"ok"}</span></p>
-                        <button className='text-white bg-[#00754A] hover:bg-[#1e3932] px-6 py-2 rounded-full text-[12px] ADD_item_Btn'>Add Item</button>
-                      </div>
+                <div className='w-full bg-white border max-w-sm min-w-[400px] sm:min-w-[425px] py-4 px-5 box-border rounded-[8px] border-slate-400 BOX mb-4' style={{ borderColor: "rgba(0, 0, 0, .175)" }}>
+                  <div className='flex gap-4'>
+                    <img src={"#"} className='w-20 bg-red-500 h-20 rounded-md object-cover' />
+                    <div>
+                      <img src={'#'} className='' />
+                      <h3 className='font-semibold'>{"OK"}</h3>
+                      <p className='text-xs text-gray-400'>OK</p>
                     </div>
+                  </div>
+                  <div className='flex justify-between font-semibold my-2' style={{ alignItems: "center" }}>
+                    <p>₹ <span>{"ok"}</span></p>
+                    <button className='text-white bg-[#00754A] hover:bg-[#1e3932] px-6 py-2 rounded-full text-[12px] ADD_item_Btn'>Add Item</button>
+                  </div>
+                </div>
+              </div >
+
             </div>
           </div>
         </div>
       </div>
 
 
-      < section className='rounded-t-[30px] shadow-md' style={{backgroundColor:"white"}} >
+      < section className='rounded-t-[30px] shadow-md' style={{ backgroundColor: "white" }} >
         <div className='p-8 px-2 sm:px-0 md:w-4/5 m-auto relative mt-3'>
           <div className='flex  items-center w-full justify-between '>
             <h1 className='text-[#1e3932] text-2xl font-bold m-0'>Learn more about the world of coffee!</h1>
@@ -133,8 +188,8 @@ function Home(){
           <button className='bg-black text-white font-bold px-3 py-1 rounded-full'>Discover More</button>
         </div>
       </section >
-      <Footer/>
+      <Footer />
     </>
-    )
+  )
 }
 export default Home;

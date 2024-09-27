@@ -1,7 +1,41 @@
 import { useEffect, useState } from "react";
-const Serch = ({value}) => {
+const Serch = ({ value }) => {
     let [FinalData, setFinalData] = useState([])
     const [FinalList, setFinalList] = useState([])
+    const [userId, setUserId] = useState(undefined);
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        fetch('http://localhost:8000/api/user-auth/', {
+            method: 'GET',
+            credentials: 'include', // Include credentials (e.g., cookies) if needed
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Fetched data:", data);
+
+                if (data.user) {
+                    console.log("User ID:", data.user.id);
+
+                    setUserId(data.user.id);
+                    setData(data.user);
+                    console.log("Cart data:", data.user.cart);
+                } else {
+                    console.log("Authentication failed:", data.message);
+                }
+            })
+            .catch(error => console.error("Fetch error:", error));
+    }, []);
+
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -69,9 +103,9 @@ const Serch = ({value}) => {
     };
 
     const addToCart = (drink) => {
-        
+
         const cartItem = {
-            user_id: 1,
+            user_id: userId,
             cart_details: {
                 title: drink.title,
                 price: drink.price,
@@ -99,7 +133,7 @@ const Serch = ({value}) => {
             .catch(error => {
                 console.error("Error adding item to cart:", error);
             });
-};
+    };
     return (<>
         <div className="w-[80%] m-auto my-3 text-[#000000a4]"> Home  &gt;  Searches    </div>
         <div className='bg-[#1e3932] py-2 sm:py-6'>
@@ -153,11 +187,11 @@ const Serch = ({value}) => {
                                     <div className='flex flex-row justify-between px-3'>
                                         <div className='text-[20px] font-serif font-normal '>₹ {food.price}</div>
                                         <div className='px-6 py-2 bg-[#00754A] hover:bg-[#979797] rounded-[30px] text-[14px] font-bold text-[#C6C6C6] Add_item' onClick={() => {
-                                                if(Boolean(window.localStorage.getItem('loggedIn'))){
-                                                    addToCart(food)
-                                                    value.setnotify(true)
-                                                }
-                                            }}>Add Item</div>
+                                            if (Boolean(window.localStorage.getItem('loggedIn'))) {
+                                                addToCart(food)
+                                                value.setnotify(true)
+                                            }
+                                        }}>Add Item</div>
                                     </div>
                                 </div>
                             </div>
