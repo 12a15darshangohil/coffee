@@ -146,7 +146,7 @@ const UserDashboard = ({ value }) => {
                     <>
                       <div className='flex relative w-[360px] px-4 bg-[#F9F9F9] py-4 rounded-[8px] item_container mr-[28px] my-[30px] scaleA'>
                         <div>
-                          <img src={items.img == "https://www.starbucks.in/assets/icon/placeholder.svg" ? "https://starbucksstatic.cognizantorderserv.com/Items/Small/108056.jpg" : items.img} className='rounded-full absolute left-[-40px] top-[23px] my-auto shadow-xl' style={{ maxWidth: '150px', maxHeight: '110px' }} />
+                          <img src={items.img == "https://www.starbucks.in/assets/icon/placeholder.svg" ? "https://starbucksstatic.cognizantorderserv.com/Items/Small/108056.jpg" : items.img} className='rounded-full absolute left-[-40px] top-[23px] my-auto shadow-xl' style={{ maxWidth: '150px', maxHeight: '120px' }} />
                         </div>
                         <div className='flex flex-col ml-[70px] w-full'>
                           <div className='px-4 mb-[5px] mt-[20px]' style={{ minHeight: "80px" }}>
@@ -160,7 +160,7 @@ const UserDashboard = ({ value }) => {
                               {items.description}
                             </div>
                           </div>
-                          <div className='flex flex-row justify-between px-3'>
+                          <div className='flex flex-row justify-between px-3 mt-4'>
                             <div className='text-[20px] font-serif font-normal'>₹ {items.price}</div>
                             <button onClick={() => {
                               addToCart(items)

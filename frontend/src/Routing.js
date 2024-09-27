@@ -8,7 +8,7 @@ import CoffeeAtHome from "./Pages/Coffe At Home";
 import Merchandise from "./Pages/Merchandies";
 import Coffeculture from "./Pages/Coffeeculture";
 import ReadyToEat from "./Pages/Ready To Eat";
-import Serch from "./Pages/Serch";
+import Serch from "./Pages/serch";
 import Cart from "./Pages/Cart";
 import { useState } from "react";
 import UserDashboard from "./Pages/UserDashboard";
@@ -23,7 +23,7 @@ function Routing() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<App value={{ 'notify': notify, 'setnotify': setnotify }} />}>
-                        <Route index element={<Home />}></Route>
+                        <Route index element={<Home  value={{ 'setnotify': setnotify }}/>}></Route>
                         <Route path="Order" element={<Order />}>
                             <Route index element={<Bestseller value={{ 'setnotify': setnotify }} />}></Route>
                             <Route path="drinks" element={<Drinks value={{ 'setnotify': setnotify }} />}></Route>
