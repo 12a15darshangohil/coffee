@@ -57,6 +57,8 @@ const ReadyToEat = ({ value }) => {
             }
         }
 
+        console.log(cartItem);
+
         fetch('http://localhost:8000/api/coffee-cart/', {
             method: 'POST',
             headers: {
@@ -125,7 +127,7 @@ const ReadyToEat = ({ value }) => {
                                         <div className='flex flex-row justify-between px-3'>
                                             <div className='text-[20px] font-serif '>₹ {data.price}</div>
                                             <button onClick={() => {
-                                                if(Boolean(window.localStorage.getItem('loggedIn'))){
+                                                if (Boolean(window.localStorage.getItem('loggedIn'))) {
                                                     addToCart(data)
                                                     value.setnotify(true)
                                                 }

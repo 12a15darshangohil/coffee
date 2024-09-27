@@ -37,7 +37,7 @@ const UserDashboard = ({ value }) => {
 
           setUserId(data.user.id);
           setData(data.user);
-          setmy_data(data.user.first_name + " "+ data.user.last_name)
+          setmy_data(data.user.username)
           console.log("Cart data:", data.user.cart);
 
         } else {
@@ -81,7 +81,7 @@ const UserDashboard = ({ value }) => {
   const [userId, setUserId] = useState(undefined);
   const addToCart = (drink) => {
     console.log(drink);
-    
+
 
     const cartItem = {
       user_id: userId,
