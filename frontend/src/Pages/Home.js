@@ -21,7 +21,7 @@ function Home(){
                     <Link to="Order"><img src={"https://www.starbucks.in/assets/icon/Bestseller.webp"} className="w-32 h-32 drop-shadow-xl sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
                     <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Bestseller</p>
                   </a>
-
+ 
                   <a className="flex justify-center items-center flex-col " >
                     <Link to="Order/drinks"><img src={"	https://www.starbucks.in/assets/icon/Drinks.webp"} className="w-32 h-32 drop-shadow-xl  sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full hover:border-2 border-green-600 border-solid m-1 scaleA" /></Link>
                     <p className='font-medium text-sm whitespace-normal sm:whitespace-nowrap mt-2 '>Drinks</p>
