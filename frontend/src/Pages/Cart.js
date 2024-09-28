@@ -10,6 +10,7 @@ function Cart() {
     const [cartItems, setCartItems] = useState([]); // State to hold cart items
     const [deliveryFee, setDeliveryFee] = useState(0); // Example delivery fee
     const [change, setChange] = useState(0)
+    const [discount, setDiscount] = useState(null);
 
     useEffect(() => {
         fetch('http://localhost:8000/api/user-auth/', {
@@ -63,7 +64,11 @@ function Cart() {
         const price = parseFloat(item.cart_details.price);
         return total + price * (quantities[item.cart_details.title] || 1);
     }, 0);
-    const total = subtotal + deliveryFee;
+    let total = subtotal + deliveryFee - (subtotal * discount);
+
+    const applyDiscount = (percentage) => {
+        setDiscount(percentage);
+    };
 
 
     const addToCart = async (item) => {
@@ -73,7 +78,7 @@ function Cart() {
                 title: item.cart_details.title,
                 price: item.cart_details.price,
                 img: item.cart_details.img,
-                description:item.cart_details.description,
+                description: item.cart_details.description,
             }
         };
         console.log(cartItem);
@@ -103,6 +108,7 @@ function Cart() {
         else {
             setChange(1)
         }
+        window.location.reload()
     };
 
     // remove from cart
@@ -195,6 +201,7 @@ function Cart() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({ discount: discount })
             });
 
             const result = response.json();
@@ -208,7 +215,6 @@ function Cart() {
             console.error('Network error:', error);
         }
     };
-
 
     return (
         <>
@@ -267,10 +273,42 @@ function Cart() {
                             <div>Delivery Fee</div>
                             <div className="font-serif">₹ {deliveryFee}</div>
                         </div>
+                        {discount &&
+                            <>
+
+                                <div className="flex justify-between w-full px-4 font-bold text-[#8080807f] mb-1.5">
+                                    <div>Applied Discount</div>
+                                    <div className="font-serif">{discount * 100} %</div>
+                                </div>
+                                <div className="flex justify-between w-full px-4 font-bold text-[#8080807f] mb-1.5">
+                                    <div>Discount amount</div>
+                                    <div className="font-serif">{(subtotal * discount).toFixed(2)}</div>
+                                </div>
+                            </>
+                        }
                         <hr className="mt-3" />
                         <div className="flex justify-between w-full px-4  text-[18px] font-bold text-[#000000cb] my-2 font-serif">
                             <div>GRAND TOTAL</div>
                             <div>₹ {total.toFixed(2)}</div>
+                        </div>
+                    </div>
+                    {/* copen------------------------------------------------------------------------------------ */}
+                    <div className="w-[80%] mx-auto bg-[#00754A] hover:bg-[#979797] px-4 py-5 text-center rounded-[16px] text-white item_container font-semibold text-[20px] mb-14 hover:cursor-pointer" onClick={() => {
+                        if (deliveryFee > 0) {
+                            document.getElementById('mainCoupen').style.display = 'block';
+                        }
+                        else {
+
+                        }
+                    }}>
+                        Apply coupon
+                    </div>
+                    <div id="mainCoupen" className="hidden bg-gray-100 p-4 rounded shadow-md mx-[200px]">
+                        <div onClick={() => { { applyDiscount(0.20) }  }} className="text-blue-600 font-semibold mb-2 rounded-[15px] cursor-pointer shadow-md p-5 bg-[#80808059]">
+                            Flate 20% - Get 20% off on order above 2500
+                        </div>
+                        <div onClick={() => { if (total > 5000) { applyDiscount(0.50) } else { alert("Please select item worth 5000 or more") } }} className="text-green-600 font-semibold rounded-[15px] cursor-pointer shadow-md p-5 bg-[#80808071]">
+                            Flate 50% - Get 20% off on order above 5000
                         </div>
                     </div>
                     <div className="w-[80%] mx-auto bg-[#00754A] hover:bg-[#979797] px-4 py-5 text-center rounded-[16px] text-white item_container font-semibold text-[20px] mb-14 hover:cursor-pointer" onClick={() => {

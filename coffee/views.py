@@ -164,8 +164,7 @@ def add_to_cart(request):
 def remove_item_from_cart(request):
     if request.method == "POST":
         try:
-            # Assuming the user is authenticated and you have access to the user instance
-            # user = request.user  # or however you get the current user
+            # user = request.user
             user = 1  # for now
             cart_item = CoffeeCart.objects.all()
             dataa = json.loads(request.body)
@@ -268,14 +267,13 @@ def user_authentication(request):
                 if cart.exists()
                 else None
             )
-            # Return user data along with cart data in the response
             user_data = {
                 "id": user.id,
                 "username": user.username,
                 "first_name": user.first_name,
                 "last_name": user.last_name,
                 "email": user.email,
-                "cart": cart_data,  # Include the cart details
+                "cart": cart_data,
             }
 
             return JsonResponse(
@@ -293,11 +291,17 @@ def user_authentication(request):
 def place_order(request):
     if request.method == "POST":
         user = request.user
+        data = json.loads(request.body)
+
+        dis = float(data.get("discount"))
+
         cart = CoffeeCart.objects.filter(user=user)
         print(cart)
         cart_items = [(item.cart_details) for item in cart]
         total_price = sum(float(item["price"]) for item in cart_items)
 
+        total_price = total_price * dis
+        print(total_price)
         # delivery charge
         total_price += 100
 
@@ -346,7 +350,7 @@ def delete_account(request):
 
 @api_view(["GET"])
 def bestseller(request):
-    orders = Order.objects.all()  # Fetch all orders
+    orders = Order.objects.all()
     item_counter = Counter()
 
     for order in orders:
